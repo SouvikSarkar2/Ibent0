@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <div className="flex justify-center items-center text-7xl font-bold font-mono min-h-screen text-sky-600 ">
-      Ibento
-    </div>
+    <main className="bg-secondary h-full w-full">
+      <div className="text-text">&quot;Plan. Schedule. Connect.&quot;</div>
+    </main>
   );
 }
