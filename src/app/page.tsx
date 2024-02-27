@@ -62,16 +62,16 @@ export default function Home() {
         ref={loaderRef}
         className="bg-slate-300 justify-center w-0 items-center flex h-[10px] text-8xl"
       >
-        <div className="overflow-hidden text-black">
+        <div className="overflow-hidden text-black font-canopee">
           <div ref={textRef}>IBENT0</div>
         </div>
       </div>
       <div
-        className="absolute w-screen h-screen flex flex-col items-center"
+        className="absolute w-screen h-screen flex flex-col items-center font-mono"
         ref={mainRef}
       >
         <div className="flex w-[80%] justify-between items-center h-[15vh] py-6">
-          <div className="text-xl font-bold uppercase text-tertiary">
+          <div className="text-xl font-bold uppercase text-secondary">
             {" "}
             Welcome - TO - IBENT0
           </div>
@@ -84,7 +84,7 @@ export default function Home() {
           <div>CONNECT&quot;</div>
         </div>
         <div className="text-3xl w-[80%] flex h-[30vh]">
-          <div className="w-2/3 flex flex-col gap-2 text-tertiary">
+          <div className="w-2/3 flex flex-col gap-2 text-secondary">
             <div>Today is 26FEB &</div> <div>Time is 7:45:45</div>
           </div>
           <div className="w-1/3 text-xl flex justify-end items-end">
