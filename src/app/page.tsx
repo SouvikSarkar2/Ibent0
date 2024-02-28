@@ -108,7 +108,7 @@ export default function Home() {
                   <ArrowUpRightFromSquare />
                 </div>
               ) : (
-                <Link href={"/home"}>
+                <Link href={"/dashboard"} className="flex gap-2">
                   ENTER
                   <ArrowBigRight />
                 </Link>

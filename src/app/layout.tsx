@@ -4,6 +4,7 @@ import "./globals.css";
 import localfont from "next/font/local";
 import SessionProvider from "@/components/SessionProvider";
 import { getServerSession } from "next-auth";
+import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -73,11 +74,13 @@ export default async function RootLayout({
   const session = await getServerSession();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${quigly.variable} ${cerlions.variable} ${ageya.variable} ${canopee.variable} ${confillia.variable} ${dahlia.variable} ${inter.className}`}
       >
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <Providers>
+          <SessionProvider session={session}>{children}</SessionProvider>
+        </Providers>
       </body>
     </html>
   );
