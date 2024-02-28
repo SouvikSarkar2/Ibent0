@@ -27,6 +27,7 @@ const config: Config = {
         canopee: ["var(--font-canopee)"],
         confillia: ["var(--font-confillia)"],
         dahlia: ["var(--font-dahlia)"],
+        quigly: ["var(--font-quigly)"],
       },
     },
   },
