@@ -9,15 +9,15 @@ const Navbar = () => {
         <Image height={75} width={75} src={"/logo-black.png"} alt="" />
       </div>
       <div>
-        <div className="bg-slate-200 dark:bg-[#15141A] w-[500px] p-2 px-4  rounded-full">
+        <div className="bg-gray-200 dark:bg-[#15141A] w-[500px] py-2 px-4  rounded-full">
           Search
         </div>
       </div>
       <div className="flex gap-6 px-6">
-        <div className="flex justify-center items-center bg-slate-200 dark:bg-[#15141A] rounded-full px-4">
+        <div className="flex justify-center items-center bg-gray-200 dark:bg-[#15141A] rounded-full px-4">
           <ThemeSwitch />
         </div>
-        <div className="flex justify-center items-center bg-slate-200 dark:bg-[#15141A] rounded-full px-4 ">
+        <div className="flex justify-center items-center bg-gray-200 dark:bg-[#15141A] rounded-full px-4 ">
           <Bell size={18} />
         </div>
         <div className="bg-[#15141A] rounded-full overflow-hidden">

@@ -21,3 +21,19 @@ body {
   width: 100vw;
   position: relative;
 }
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: inherit;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8f8f8f;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
