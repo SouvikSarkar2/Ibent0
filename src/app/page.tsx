@@ -70,10 +70,10 @@ export default function Home() {
   }
 
   return (
-    <main className="h-screen overflow-hidden w-screen font-bold bg-black flex flex-col justify-center ">
+    <main className="h-screen overflow-hidden w-screen font-bold bg-black flex flex-col justify-center text-slate-100">
       <div
         ref={loaderRef}
-        className="bg-slate-300 justify-center w-0 items-center flex h-[8px] text-9xl"
+        className="bg-slate-500 justify-center w-0 items-center flex h-[8px] text-9xl"
       >
         <div className="overflow-hidden text-black font-canopee">
           <div ref={textRef}>IBENT0</div>
@@ -84,15 +84,15 @@ export default function Home() {
         ref={mainRef}
       >
         <div className="flex w-[80%] justify-between items-center h-[15vh] py-6">
-          <div className="text-xl font-bold uppercase text-secondary">
+          <div className="text-xl font-bold uppercase ">
             {" "}
             Welcome - TO - IBENT0
           </div>
           <div>
-            <Image src={"/logo-black.png"} width={120} height={120} />
+            <Image src={"/logo-white.png"} width={120} height={120} />
           </div>
         </div>
-        <div className="h-[50vh]  flex flex-col justify-center w-[80%] items-start gap-1 text-[70px] font-bold text-primary">
+        <div className="h-[50vh]  flex flex-col justify-center w-[80%] items-start gap-1 text-[70px] font-bold ">
           <div className="">&quot;PLAN.</div> <div>SCHEDULE.</div>{" "}
           <div>CONNECT&quot;</div>
         </div>
@@ -101,7 +101,7 @@ export default function Home() {
             <TimeFunction />
           </div>
           <div className="w-1/3 text-xl flex justify-end items-end">
-            <div className="px-3 py-3 flex gap-2 items-center bg-primary rounded-xl text-white cursor-pointer">
+            <div className="px-3 py-3 flex gap-2 items-center bg-slate-300 text-[#49576a] rounded-xl  cursor-pointer">
               {session?.status !== "authenticated" ? (
                 <div onClick={handleSignin}>
                   LOGIN

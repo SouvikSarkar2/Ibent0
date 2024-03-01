@@ -53,10 +53,10 @@ const TimeFunction = () => {
   }
 
   return (
-    <div className="border-l-4 border-primary">
+    <div className="border-l-4 border-slate-100 text-slate-100">
       <div className="font-bold uppercase text-4xl p-4">{date}</div>
-      <div className="border-primary rounded-lg p-2">
-        <div className="border-primary p-2">{time}</div>
+      <div className=" rounded-lg p-2">
+        <div className=" p-2">{time}</div>
       </div>
     </div>
   );

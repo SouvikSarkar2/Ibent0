@@ -18,7 +18,7 @@ const Sidebar = () => {
   // console.log(pathname);
   return (
     <div
-      className={` bg-gray-200 dark:bg-primary rounded-3xl w-[15%] dark:text-text flex flex-col items-center gap-3 ${
+      className={` bg-gray-200 dark:bg-[#35374B] rounded-3xl w-[15%] dark:text-text flex flex-col items-center gap-3 ${
         pathname === "/dashboard" ? "pt-10" : ""
       }`}
     >
