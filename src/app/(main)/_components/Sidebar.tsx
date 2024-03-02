@@ -1,6 +1,17 @@
 "use client";
 
-import { ArrowLeft, Briefcase, Calendar, Plus, User } from "lucide-react";
+import {
+  ArrowLeft,
+  Briefcase,
+  Calendar,
+  CalendarRange,
+  CircleUserRound,
+  GanttChartSquare,
+  Plus,
+  PlusCircle,
+  User,
+} from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -18,7 +29,7 @@ const Sidebar = () => {
   // console.log(pathname);
   return (
     <div
-      className={` bg-gray-200 dark:bg-[#35374B] rounded-3xl w-[15%] dark:text-text flex flex-col items-center gap-3 ${
+      className={` bg-[#EDEDEF] dark:bg-[#35374B] border-r-4 dark:border-r-0 border-white rounded-l-3xl w-[15%] dark:text-text flex flex-col items-center gap-3 ${
         pathname === "/dashboard" ? "pt-10" : ""
       }`}
     >
@@ -38,17 +49,17 @@ const Sidebar = () => {
           key={index}
           href={link.href}
           onClick={() => setIsActive(index)}
-          className={` w-[90%] py-3 pl-2 rounded-xl ${
+          className={`hover:bg-white hover:pl-10  dark:hover:bg-[#494c62] duration-500  w-[90%] py-3 pl-3 rounded-xl font-bold font-urbanist uppercase text-md ${
             isActive === index
-              ? "bg-white dark:bg-[#494c62]"
-              : "bg-gray-300 dark:bg-[#2C293D]"
+              ? "bg-white dark:bg-[#494c62] "
+              : " bg-inherit dark:bg-inherit"
           }`}
         >
-          <div className="flex gap-2">
-            {index === 0 && <Calendar />}
-            {index === 1 && <Briefcase />}
-            {index === 2 && <Plus />}
-            {index === 3 && <User />}
+          <div className=" ease-in-out flex gap-2">
+            {index === 0 && <CalendarRange />}
+            {index === 1 && <GanttChartSquare />}
+            {index === 2 && <PlusCircle />}
+            {index === 3 && <CircleUserRound />}
 
             {link.text}
           </div>

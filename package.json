@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.9.5",
     "@gsap/react": "^2.1.0",
     "@hookform/resolvers": "^3.3.4",
     "@maptiler/client": "^1.8.0",
     "@maptiler/geocoding-control": "^1.2.2",
     "@maptiler/sdk": "^1.2.1",
+    "@prisma/client": "^5.10.2",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.7",
@@ -22,6 +24,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",
+    "graphql": "^16.8.1",
     "gsap": "^3.12.5",
     "lucide-react": "^0.341.0",
     "maplibre-gl": "^4.0.2",
@@ -45,6 +48,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "postcss": "^8",
+    "prisma": "^5.10.2",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

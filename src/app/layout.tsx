@@ -66,6 +66,15 @@ const quigly = localfont({
   variable: "--font-quigly",
 });
 
+const urbanist = localfont({
+  src: [
+    {
+      path: "../fonts/Urbanist-Bold.ttf",
+    },
+  ],
+  variable: "--font-urbanist",
+});
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -76,7 +85,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${quigly.variable} ${cerlions.variable} ${ageya.variable} ${canopee.variable} ${confillia.variable} ${dahlia.variable} ${inter.className}`}
+        className={`${urbanist.variable} ${quigly.variable} ${cerlions.variable} ${ageya.variable} ${canopee.variable} ${confillia.variable} ${dahlia.variable} ${inter.className}`}
       >
         <Providers>
           <SessionProvider session={session}>{children}</SessionProvider>

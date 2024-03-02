@@ -3,8 +3,8 @@ import { CalendarDays, ChevronDown } from "lucide-react";
 const page = () => {
   return (
     <div>
-      <div className=" h-[10vh] flex justify-between items-end pb-4 px-2">
-        <div className="text-3xl font-medium">Dashboard</div>
+      <div className=" h-[10vh] flex justify-between items-end pb-4 px-2 ">
+        <div className="text-3xl font-medium ">Dashboard</div>
         <div className="flex gap-6 px-4">
           <div className="flex gap-4 bg-white dark:bg-[#35374B] rounded-full px-3 items-center py-1 text-sm">
             <div>Today</div>

@@ -59,6 +59,8 @@ const config = {
         canopee: ["var(--font-canopee)"],
         confillia: ["var(--font-confillia)"],
         dahlia: ["var(--font-dahlia)"],
+        quigly: ["var(--font-quigly)"],
+        urbanist: ["var(--font-urbanist)"],
       },
       borderRadius: {
         lg: "var(--radius)",
