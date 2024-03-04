@@ -15,7 +15,11 @@ const resolvers = {
       });
     },
     users: () => {
-      return prisma.user.findMany();
+      return prisma.user.findMany({
+        include: {
+          events: true,
+        },
+      });
     },
     event: async (_: any, { id }: { id: string }) => {
       return prisma.event.findUnique({
@@ -36,7 +40,27 @@ const resolvers = {
         data: input,
       });
     },
-    createEvent: async (_: any, { input, userId }: any) => {
+    updateUser: async (_: any, { input, id }: any) => {
+      return await prisma.user.update({
+        where: {
+          id: id,
+        },
+        data: input,
+      });
+    },
+    deleteUser: async (_: any, { id }: { id: string }) => {
+      await prisma.event.deleteMany({
+        where: {
+          userId: id,
+        },
+      });
+      return await prisma.user.delete({
+        where: {
+          id: id,
+        },
+      });
+    },
+    createEvent: async (_: any, { input, id }: any) => {
       const event = await prisma.event.create({
         data: {
           attendees: input.attendees,
@@ -50,7 +74,7 @@ const resolvers = {
           title: input.title,
           type: input.type,
           user: {
-            connect: { id: userId },
+            connect: { id: id },
           },
         },
       });
@@ -59,7 +83,21 @@ const resolvers = {
     updateEvent: async (_: any, { id, input }: any) => {
       const updatedEvent = await prisma.event.update({
         where: { id: id },
-        data: input,
+        data: {
+          attendees: input.attendees,
+          color: input.color,
+          date: input.date,
+          description: input.description,
+          duration: input.duration,
+          hr: input.hr,
+          mn: input.mn,
+          remainder: input.remainder,
+          title: input.title,
+          type: input.type,
+        },
+        include: {
+          user: true,
+        },
       });
       return updatedEvent;
     },

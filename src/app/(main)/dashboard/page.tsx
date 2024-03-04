@@ -23,7 +23,7 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#EDEDEF] dark:bg-[#2C293D] h-[78vh] flex">
+      <div className="bg-gray-200 dark:bg-[#2C293D] h-[78vh] flex">
         <div className="w-[79%]  flex flex-col justify-evenly items-center">
           <div className="bg-white dark:bg-[#35374B] h-[48%] w-[98%] rounded-xl"></div>
           <div className="flex w-[98%] h-[48%] justify-between gap-3">

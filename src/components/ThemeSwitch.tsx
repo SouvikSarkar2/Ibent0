@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { Moon, MoonStar, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
@@ -14,10 +14,10 @@ const ThemeSwitch = () => {
     return <>...</>;
   }
   if (resolvedTheme === "dark") {
-    return <Moon size={20} onClick={() => setTheme("light")} />;
+    return <MoonStar size={18} onClick={() => setTheme("light")} />;
   }
   if (resolvedTheme === "light") {
-    return <Sun size={20} onClick={() => setTheme("dark")} />;
+    return <Sun size={18} onClick={() => setTheme("dark")} />;
   }
 };
 

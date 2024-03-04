@@ -1,9 +1,7 @@
-import { main } from "..";
 import { ProfileForm } from "./_components/EventForm";
 import Map from "./_components/Map";
 
 const page = () => {
-  main();
   return (
     <div className="h-full w-full flex justify-center items-center">
       <div className="h-[90%] w-[95%] bg-white dark:bg-[#35374B] rounded-xl flex">

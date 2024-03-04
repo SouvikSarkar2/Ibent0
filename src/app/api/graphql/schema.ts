@@ -6,6 +6,17 @@ input NewUserInput {
     color: String!
     status: String!
     img:String
+    events:[NewEventInput!]
+  }
+
+  
+input UpdateUserInput {
+  
+    name: String 
+    email:String
+    color: String
+    status: String
+    img:String
   }
 
   input NewEventInput {
@@ -18,12 +29,23 @@ input NewUserInput {
     remainder: Boolean!
     title: String!
     type: String!
-    userId: String!
     description: String
   }
 
-scalar UpdateEventInput
-scalar UpdateUserInput
+
+
+  input UpdateEventInput{
+    attendees: String
+    color: String
+    date: String
+    duration: Int
+    hr: String
+    mn: String
+    remainder: Boolean
+    title: String
+    type: String
+    description: String
+  }
 
 
 
@@ -35,7 +57,7 @@ scalar UpdateUserInput
   }
 
   type Mutation {
-    createEvent(input:NewEventInput!):Event
+    createEvent(input:NewEventInput!,id:ID!):Event
     updateEvent(id: ID!, input: UpdateEventInput!): Event
   deleteEvent(id: ID!): Event
     createUser(input: NewUserInput!): User

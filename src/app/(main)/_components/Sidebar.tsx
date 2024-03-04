@@ -2,16 +2,12 @@
 
 import {
   ArrowLeft,
-  Briefcase,
-  Calendar,
   CalendarRange,
   CircleUserRound,
   GanttChartSquare,
-  Plus,
   PlusCircle,
-  User,
 } from "lucide-react";
-import Image from "next/image";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -29,7 +25,7 @@ const Sidebar = () => {
   // console.log(pathname);
   return (
     <div
-      className={` bg-[#EDEDEF] dark:bg-[#35374B] border-r-4 dark:border-r-0 border-white rounded-l-3xl w-[15%] dark:text-text flex flex-col items-center gap-3 ${
+      className={` bg-gray-200 dark:bg-[#2C293D] border-r-4 border-white dark:border-[#020817] rounded-xl w-[15%] dark:text-text flex flex-col items-center gap-3 ${
         pathname === "/dashboard" ? "pt-10" : ""
       }`}
     >

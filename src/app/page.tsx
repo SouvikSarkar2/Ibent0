@@ -65,7 +65,7 @@ export default function Home() {
 
   async function handleSignin() {
     await signIn("google", {
-      callbackUrl: "/",
+      callbackUrl: "/dashboard",
     });
   }
 
@@ -89,7 +89,7 @@ export default function Home() {
             Welcome - TO - IBENT0
           </div>
           <div>
-            <Image src={"/logo-white.png"} width={120} height={120} />
+            <Image src={"/logo-dark.png"} alt="" width={80} height={80} />
           </div>
         </div>
         <div className="h-[50vh]  flex flex-col justify-center w-[80%] items-start gap-1 text-[70px] font-bold ">
@@ -97,9 +97,7 @@ export default function Home() {
           <div>CONNECT&quot;</div>
         </div>
         <div className="text-3xl w-[80%] flex h-[30vh]">
-          <div className="w-2/3 flex flex-col justify-end text-secondary  ">
-            <TimeFunction />
-          </div>
+          <div className="w-2/3 flex flex-col justify-end text-secondary  "></div>
           <div className="w-1/3 text-xl flex justify-end items-end">
             <div className="px-3 py-3 flex gap-2 items-center bg-slate-300 text-[#49576a] rounded-xl  cursor-pointer">
               {session?.status !== "authenticated" ? (
