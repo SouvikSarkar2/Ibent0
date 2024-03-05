@@ -5,6 +5,8 @@ import localfont from "next/font/local";
 import SessionProvider from "@/components/SessionProvider";
 import { getServerSession } from "next-auth";
 import { Providers } from "./providers";
+import client from "@/utils/apolliClient";
+import { ApolloProvider } from "@apollo/client";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
-
+import { gql, useMutation } from "@apollo/client";
 import { cn } from "@/lib/utils";
 
 import { Calendar } from "@/components/ui/calendar";
@@ -38,6 +38,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useGeolocationStore, useUserIdStore } from "@/store";
+import client from "@/utils/apolliClient";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -46,7 +48,7 @@ const formSchema = z.object({
   description: z.string(),
   attendees: z.string(),
   type: z.string(),
-  date: z.date(),
+  date: z.union([z.date(), z.string()]),
   hr: z.string(),
   mn: z.string(),
   remainder: z.boolean(),
@@ -57,8 +59,21 @@ const formSchema = z.object({
     .length(7, { message: "Must be of 7 letters Starting with #" }),
 });
 
+const CREATE_EVENT = gql`
+  mutation CreateEvent($input: NewEventInput!, $userId: ID!) {
+    createEvent(input: $input, id: $userId) {
+      title
+    }
+  }
+`;
+
 export function ProfileForm() {
-  // 1. Define your form.
+  const [createEvent, { loading, error }] = useMutation(CREATE_EVENT, {
+    client,
+  });
+  const { coordinates } = useGeolocationStore();
+  const { userId } = useUserIdStore();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -74,11 +89,33 @@ export function ProfileForm() {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const date = new Date(values.date);
+    const isoDate = date.toISOString();
+    values.date = isoDate;
+    // console.log("coordinates :", coordinates);
+    try {
+      const { data } = await createEvent({
+        variables: {
+          input: {
+            attendees: values.attendees,
+            color: values.color,
+            date: values.date,
+            duration: values.duration,
+            hr: values.hr,
+            mn: values.mn,
+            remainder: values.remainder,
+            title: values.title,
+            type: values.type,
+          },
+          userId: userId,
+        },
+      });
+
+      console.log("Event created:", data.createEvent);
+    } catch (error) {
+      console.error("Error creating event:", error);
+    }
   }
 
   return (

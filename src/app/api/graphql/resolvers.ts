@@ -60,7 +60,7 @@ const resolvers = {
         },
       });
     },
-    createEvent: async (_: any, { input, id }: any) => {
+    createEvent: async (_: any, { input, id }: { input: any; id: string }) => {
       const event = await prisma.event.create({
         data: {
           attendees: input.attendees,

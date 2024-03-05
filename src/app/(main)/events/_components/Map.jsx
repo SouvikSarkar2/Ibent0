@@ -8,6 +8,7 @@ import "@maptiler/geocoding-control/style.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./map.css";
 import * as maptilerClient from "@maptiler/client";
+import { useGeolocationStore } from "@/store";
 
 maptilerClient.config.apiKey = "4xvvAyMfEq6xan1UKktB";
 
@@ -19,6 +20,7 @@ export default function Map() {
   const [zoom] = useState(14);
   const [API_KEY] = useState("4xvvAyMfEq6xan1UKktB");
   const [mapController, setMapController] = useState();
+  const { setCoordinates } = useGeolocationStore();
 
   useEffect(() => {
     if (map.current) return;
@@ -37,13 +39,19 @@ export default function Map() {
     setMapController(createMapLibreGlMapController(map.current, maplibregl));
   }, [API_KEY, lng, lat, zoom]);
 
-  const func = async () => {
+  /* const func = async () => {
     // in an async function, or as a 'thenable':
     const result = await maptilerClient.geocoding.forward("iiit bhubaneswar");
-    // console.log(result);
+    console.log(result);
   };
 
-  func();
+  func(); */
+
+  async function handleSelect(e) {
+    if (e?.center) {
+      setCoordinates(e.center);
+    }
+  }
 
   return (
     <div className="map-wrap">
@@ -52,7 +60,7 @@ export default function Map() {
           class="z-10"
           apiKey={API_KEY}
           mapController={mapController}
-          onSelect={(e) => console.log(e)}
+          onSelect={handleSelect}
         />
       </div>
       <div ref={mapContainer} className="map" />
