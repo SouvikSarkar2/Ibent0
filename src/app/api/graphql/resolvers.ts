@@ -29,8 +29,10 @@ const resolvers = {
         },
       });
     },
-    events: () => {
-      return prisma.event.findMany();
+    events: (_: any, { id }: { id: string }) => {
+      return prisma.event.findMany({
+        where: { userId: id },
+      });
     },
   },
 

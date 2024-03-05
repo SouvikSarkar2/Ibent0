@@ -10,6 +10,7 @@ import SignoutButton from "./SignoutButton";
 import Image from "next/image";
 import { PenLine, Settings } from "lucide-react";
 import { useUserIdStore } from "@/store";
+import { useEffect, useState } from "react";
 
 const GET_USER = gql`
   query GetUser($id: String!) {
@@ -24,11 +25,17 @@ const GET_USER = gql`
 `;
 
 const User = () => {
+  const [color, setColor] = useState("#000000");
   const { userId } = useUserIdStore();
   const { loading, error, data } = useQuery(GET_USER, {
     variables: { id: userId },
     client: client,
   });
+  useEffect(() => {
+    if (data) {
+      setColor(data.user.color);
+    }
+  }, [data]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -54,7 +61,8 @@ const User = () => {
               {user.email}
             </div>
             <div
-              className={`text-sm flex justify-center items-center h-[40px] text-[${user.color}] `}
+              className={`text-sm flex justify-center items-center h-[40px] `}
+              style={{ color: color }}
             >
               {user.status}
             </div>

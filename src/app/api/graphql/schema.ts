@@ -50,7 +50,7 @@ input UpdateUserInput {
 
 
   type Query {
-    events: [Event!]!
+    events(id:String!): [Event!]!
     event(id: String!): Event
     users: [User!]!
     user(id: String!): User

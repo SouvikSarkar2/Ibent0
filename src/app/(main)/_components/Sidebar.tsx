@@ -16,7 +16,7 @@ const links = [
   { href: "/calender", text: "Calender" },
   { href: "/allevent", text: "All Event" },
   { href: "/events", text: "Add Event" },
-  { href: "/users/user", text: "User" },
+  { href: "/user", text: "User" },
 ];
 
 const Sidebar = () => {
