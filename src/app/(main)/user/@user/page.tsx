@@ -5,6 +5,8 @@ import { useUserIdStore } from "@/store";
 import { Edit, Square } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const GET_USER = gql`
   query GetUser($id: String!) {
@@ -25,7 +27,22 @@ const User = () => {
     client: client,
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="flex flex-col h-full">
+        <div className="h-[15%]  w-full flex justify-between items-center px-10">
+          <Skeleton className="flex gap-2 font-urbanist w-[200px] h-6"></Skeleton>
+          <Skeleton className="text-sm text-gray-600 dark:text-gray-300 w-[200px] h-6"></Skeleton>
+        </div>
+        <div className="h-[60%]  w-full flex justify-center items-center px-10">
+          <Skeleton className=" w-[280px] h-[280px] rounded-full flex justify-center items-center overflow-hidden"></Skeleton>
+        </div>
+        <div className="h-[25%]  w-full px-10 flex justify-between items-center">
+          <Skeleton className="flex italic gap-2 w-[200px]  h-6"></Skeleton>
+          <Skeleton className="flex text-black rounded-xl p-2 gap-2 w-[100px] h-10"></Skeleton>
+        </div>
+      </div>
+    );
   if (error) return <p>Error: {error.message}</p>;
   const { user } = data;
 
@@ -49,10 +66,13 @@ const User = () => {
           <div>STATUS :: </div>
           {user.status}
         </div>
-        <div className="flex bg-yellow-400 text-black rounded-xl p-2 gap-2">
+        <Link
+          href={"/user/settings"}
+          className="flex bg-yellow-400 text-black rounded-xl p-2 gap-2"
+        >
           EDIT
           <Edit />
-        </div>
+        </Link>
       </div>
     </div>
   );

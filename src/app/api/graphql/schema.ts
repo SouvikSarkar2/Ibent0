@@ -52,8 +52,10 @@ input UpdateUserInput {
   type Query {
     events(id:String!): [Event!]!
     event(id: String!): Event
+    eventByType(id:String!,type:String!):[Event!]!
     users: [User!]!
     user(id: String!): User
+    
   }
 
   type Mutation {

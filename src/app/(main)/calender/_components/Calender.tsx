@@ -34,7 +34,7 @@ const Calender = () => {
   };
 
   return (
-    <div className=" duration-700 h-[95%] bg-white dark:bg-[#35374B] dark:text-gray-100 rounded-xl w-[96%]">
+    <div className=" h-[95%] bg-white dark:bg-[#35374B] dark:text-gray-100 rounded-xl w-[96%]">
       <div className="flex justify-between p-4">
         <div className="flex gap-2">
           <div

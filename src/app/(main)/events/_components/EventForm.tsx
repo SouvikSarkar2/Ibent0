@@ -63,6 +63,9 @@ const CREATE_EVENT = gql`
   mutation CreateEvent($input: NewEventInput!, $userId: ID!) {
     createEvent(input: $input, id: $userId) {
       title
+      id
+      date
+      type
     }
   }
 `;
@@ -70,6 +73,40 @@ const CREATE_EVENT = gql`
 export function ProfileForm() {
   const [createEvent, { loading, error }] = useMutation(CREATE_EVENT, {
     client,
+    update(cache, { data: { createEvent } }) {
+      cache.modify({
+        fields: {
+          events(existingEvents = []) {
+            const newEventRef = cache.writeFragment({
+              data: createEvent,
+              fragment: gql`
+                fragment NewEvent on Event {
+                  id
+                  date
+                  title
+                  type
+                }
+              `,
+            });
+            return [...existingEvents, newEventRef];
+          },
+          eventByType(existingEvents = []) {
+            const newEventRef = cache.writeFragment({
+              data: createEvent,
+              fragment: gql`
+                fragment NewEvent on Event {
+                  id
+                  date
+                  title
+                  type
+                }
+              `,
+            });
+            return [...existingEvents, newEventRef];
+          },
+        },
+      });
+    },
   });
   const { coordinates } = useGeolocationStore();
   const { userId } = useUserIdStore();
@@ -117,6 +154,9 @@ export function ProfileForm() {
       console.error("Error creating event:", error);
     }
   }
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div className=" w-[100%] flex justify-center items-center overflow-y-scroll ">

@@ -8,9 +8,11 @@ import {
 } from "@/components/ui/popover";
 import SignoutButton from "./SignoutButton";
 import Image from "next/image";
-import { PenLine, Settings } from "lucide-react";
+import { Cog, PenLine, Settings } from "lucide-react";
 import { useUserIdStore } from "@/store";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const GET_USER = gql`
   query GetUser($id: String!) {
@@ -37,7 +39,35 @@ const User = () => {
     }
   }, [data]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <Skeleton className=" rounded-xl overflow-hidden h-[50px] w-[50px]">
+        <Popover>
+          <PopoverTrigger>
+            <Skeleton className="h-[50px] w-[50px] rounded-xl"></Skeleton>
+          </PopoverTrigger>
+          <PopoverContent className="mr-2 mt-2  min-w-[180px] max-w-[220px] h-[250px] bg-gray-300 dark:bg-[#35374B] relative">
+            <div className="w-full flex flex-col  h-full gap-2">
+              <div className="w-full flex justify-center items-end">
+                <Skeleton className="rounded-xl h-[50px] w-[50px] overflow-hidden"></Skeleton>
+              </div>
+              <Skeleton className=" font-urbanist h-[20px] flex justify-center items-center w-full"></Skeleton>
+              <Skeleton className="text-xs text-gray-600 dark:text-gray-400 text-center h-[20px] w-full"></Skeleton>
+              <Skeleton
+                className={`text-sm flex justify-center items-center h-[20px] w-full`}
+              ></Skeleton>
+              <div className=" w-[95%] absolute bottom-1 right-1 flex gap-1 justify-end items-end pb-1 text-black">
+                <div className="flex items-center"></div>
+
+                <Skeleton className="flex justify-center text-sm items-center gap-1 h-5 w-10"></Skeleton>
+
+                <Skeleton className="w-10 h-5"></Skeleton>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </Skeleton>
+    );
   if (error) return <p>Error: {error.message}</p>;
   const { user } = data;
 
@@ -67,19 +97,18 @@ const User = () => {
               {user.status}
             </div>
             <div className=" w-[95%] absolute bottom-1 right-1 flex gap-1 justify-end items-end pb-1 text-black">
-              <div className="flex items-center">
-                <div className="bg-yellow-400 rounded-md  h-[30px] w-[30px] flex justify-center items-center">
-                  <Settings />
-                </div>
-              </div>
+              <div className="flex items-center"></div>
               <div
-                className="flex justify-center items-center h-[30px] w-[70px]  font-urbanist
+                className="flex justify-center items-center h-[30px] w-[110px] font-urbanist
              bg-slate-400 rounded-lg text-md"
               >
-                <div className="flex justify-center text-sm items-center">
-                  EDIT
-                  <PenLine size={18} />
-                </div>
+                <Link
+                  href={"/user/settings"}
+                  className="flex justify-center text-sm items-center gap-1"
+                >
+                  <Cog size={18} />
+                  SETTINGS
+                </Link>
               </div>
               <div className="">
                 <SignoutButton />

@@ -34,6 +34,14 @@ const resolvers = {
         where: { userId: id },
       });
     },
+    eventByType: (_: any, { id, type }: { id: string; type: string }) => {
+      return prisma.event.findMany({
+        where: {
+          userId: id,
+          type: type,
+        },
+      });
+    },
   },
 
   Mutation: {
