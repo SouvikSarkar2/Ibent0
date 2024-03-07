@@ -1,5 +1,6 @@
 "use client";
-import client from "@/utils/apolliClient";
+import { useUserIdStore } from "@/store";
+import client from "@/utils/apolloClient";
 import { gql, useMutation } from "@apollo/client";
 import {
   Delete,
@@ -19,22 +20,27 @@ const DELETE_EVENT = gql`
   }
 `;
 
-const GET_EVENT_BY_TYPE = gql`
-  query EventByType($userId: String!, $type: String!) {
-    eventByType(id: $userId, type: $type) {
+const GET_EVENTS = gql`
+  query Events($userId: String!) {
+    events(id: $userId) {
       title
       id
       date
+      type
     }
   }
 `;
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event }: any) => {
+  const { userId } = useUserIdStore();
   const [deleteEvent, { loading, error, data, reset }] = useMutation(
     DELETE_EVENT,
     {
       client: client,
-      refetchQueries: [GET_EVENT_BY_TYPE, "EventByType"],
+      refetchQueries: [
+        "EventByType",
+        { query: GET_EVENTS, variables: { userId: userId } },
+      ],
     }
   );
 
@@ -75,7 +81,7 @@ const EventCard = ({ event }) => {
             <UsersRound size={20} />
           </div>
           <div
-            className=" rounded-md cursor-pointer"
+            className=" rounded-md cursor-pointer hover:scale-110 duration-300"
             style={{ backgroundColor: event.color }}
             onClick={() => {
               submitClick();

@@ -23,9 +23,8 @@ const Navbar = ({ id }: { id: string | undefined }) => {
       </div>
       <div></div>
       <div className="flex gap-2.5 px-2.5">
-        <div className="flex cursor-pointer justify-center items-center bg-gray-300 dark:bg-[#15141A] rounded-xl border-2 dark:border-gray-400 border-black px-4">
-          <ThemeSwitch />
-        </div>
+        <ThemeSwitch />
+
         <div className="flex cursor-pointer justify-center items-center bg-gray-300 dark:bg-[#15141A] rounded-xl border-2 dark:border-gray-400 border-black px-4">
           <BellOff size={18} />
         </div>

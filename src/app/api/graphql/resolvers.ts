@@ -83,6 +83,7 @@ const resolvers = {
           remainder: input.remainder,
           title: input.title,
           type: input.type,
+          createdAt: input.createdAt,
           user: {
             connect: { id: id },
           },

@@ -1,6 +1,6 @@
 "use client";
 import { gql, useQuery } from "@apollo/client";
-import client from "@/utils/apolliClient";
+import client from "@/utils/apolloClient";
 import {
   Popover,
   PopoverContent,
@@ -27,17 +27,11 @@ const GET_USER = gql`
 `;
 
 const User = () => {
-  const [color, setColor] = useState("#000000");
   const { userId } = useUserIdStore();
   const { loading, error, data } = useQuery(GET_USER, {
     variables: { id: userId },
     client: client,
   });
-  useEffect(() => {
-    if (data) {
-      setColor(data.user.color);
-    }
-  }, [data]);
 
   if (loading)
     return (
@@ -75,13 +69,22 @@ const User = () => {
     <div className="bg-[#15141A] rounded-xl overflow-hidden h-[50px] w-[50px]">
       <Popover>
         <PopoverTrigger>
-          <Image width={50} height={50} alt="" src={`${user.img}`} />
+          <div className="w-[50px] h-[50px] relative">
+            <Image fill className="object-cover" alt="" src={`${user.img}`} />
+          </div>
         </PopoverTrigger>
         <PopoverContent className="mr-2 mt-2  min-w-[180px] max-w-[220px] h-[250px] bg-gray-300 dark:bg-[#35374B] relative">
           <div className="w-full h-full">
             <div className="w-full flex justify-center items-end">
               <div className="rounded-xl h-[50px] w-[50px] overflow-hidden">
-                <Image width={50} height={50} alt="" src={`${user.img}`} />
+                <div className="w-[50px] h-[50px] relative">
+                  <Image
+                    fill
+                    className="object-cover"
+                    alt=""
+                    src={`${user.img}`}
+                  />
+                </div>
               </div>
             </div>
             <div className=" font-urbanist h-[50px] flex justify-center items-center">
@@ -92,7 +95,7 @@ const User = () => {
             </div>
             <div
               className={`text-sm flex justify-center items-center h-[40px] `}
-              style={{ color: color }}
+              style={{ color: user.color }}
             >
               {user.status}
             </div>
@@ -107,7 +110,7 @@ const User = () => {
                   className="flex justify-center text-sm items-center gap-1"
                 >
                   <Cog size={18} />
-                  SETTINGS
+                  EDIT
                 </Link>
               </div>
               <div className="">

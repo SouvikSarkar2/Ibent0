@@ -14,10 +14,24 @@ const ThemeSwitch = () => {
     return <>...</>;
   }
   if (resolvedTheme === "dark") {
-    return <MoonStar size={18} onClick={() => setTheme("light")} />;
+    return (
+      <div
+        onClick={() => setTheme("light")}
+        className="flex cursor-pointer justify-center items-center bg-gray-300 dark:bg-[#15141A] rounded-xl border-2 dark:border-gray-400 border-black px-4"
+      >
+        <MoonStar size={18} />
+      </div>
+    );
   }
   if (resolvedTheme === "light") {
-    return <Sun size={18} onClick={() => setTheme("dark")} />;
+    return (
+      <div
+        onClick={() => setTheme("dark")}
+        className="flex cursor-pointer justify-center items-center bg-gray-300 dark:bg-[#15141A] rounded-xl border-2 dark:border-gray-400 border-black px-4"
+      >
+        <Sun size={18} />
+      </div>
+    );
   }
 };
 

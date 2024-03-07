@@ -13,34 +13,34 @@ input NewUserInput {
 input UpdateUserInput {
   
     name: String 
-    email:String
     color: String
     status: String
     img:String
   }
 
   input NewEventInput {
-    attendees: String!
+    attendees: Int!
     color: String!
     date: String!
     duration: Int!
-    hr: String!
-    mn: String!
+    hr: Int!
+    mn: Int!
     remainder: Boolean!
     title: String!
     type: String!
     description: String
+    createdAt:String!
   }
 
 
 
   input UpdateEventInput{
-    attendees: String
+    attendees: Int
     color: String
     date: String
     duration: Int
-    hr: String
-    mn: String
+    hr: Int
+    mn: Int
     remainder: Boolean
     title: String
     type: String
@@ -70,18 +70,19 @@ input UpdateUserInput {
 
   type Event {
     id: String!
-    attendees: String!
+    attendees: Int!
     color: String!
-    date: DateTime!
+    date: String!
     description: String
     duration: Int!
-    hr: String!
-    mn: String!
+    hr: Int!
+    mn: Int!
     remainder: Boolean!
     title: String!
     type: String!
     user: User!
     userId:String!
+    createdAt:String!
   }
 
   type User {

@@ -1,6 +1,6 @@
 "use client";
 import { gql, useQuery } from "@apollo/client";
-import client from "@/utils/apolliClient";
+import client from "@/utils/apolloClient";
 import { useUserIdStore } from "@/store";
 import RecentEventCard from "./_components/RecentEventCard";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -56,8 +56,8 @@ const RecentEvents = () => {
           </div>
           <div className="h-[180px] w-full overflow-y-scroll">
             <div className=" w-full h-full">
-              {events.map((event) => (
-                <RecentEventCard event={event} />
+              {events.map((event: any) => (
+                <RecentEventCard key={event.id} event={event} />
               ))}
             </div>
           </div>

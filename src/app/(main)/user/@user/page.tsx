@@ -1,12 +1,13 @@
 "use client";
 import { gql, useQuery } from "@apollo/client";
-import client from "@/utils/apolliClient";
+import client from "@/utils/apolloClient";
 import { useUserIdStore } from "@/store";
 import { Edit, Square } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import { object } from "zod";
 
 const GET_USER = gql`
   query GetUser($id: String!) {
@@ -57,8 +58,8 @@ const User = () => {
         </div>
       </div>
       <div className="h-[60%]  w-full flex justify-center items-center px-10">
-        <div className=" w-[280px] h-[280px] rounded-full flex justify-center items-center overflow-hidden">
-          <Image src={user.img} alt="" width={280} height={280} />
+        <div className=" w-[280px] h-[280px] rounded-full flex justify-center items-center overflow-hidden relative">
+          <Image className="object-cover" src={user.img} alt="" fill />
         </div>
       </div>
       <div className="h-[25%]  w-full px-10 flex justify-between items-center">

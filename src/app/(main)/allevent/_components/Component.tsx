@@ -1,6 +1,6 @@
 "use client";
 import { gql, useQuery } from "@apollo/client";
-import client from "@/utils/apolliClient";
+import client from "@/utils/apolloClient";
 import { useUserIdStore } from "@/store";
 import EventCard from "./EventCard";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -48,7 +48,6 @@ const Component: React.FC<ComponentProps> = ({ type }) => {
     );
   if (error) return <p>Error: {error.message}</p>;
 
-  console.log(`data of ${type} :`, data);
   return (
     <div className="bg-white dark:bg-[#35374B] h-[92%] w-[27%] rounded-xl ">
       <div className="w-full flex h-[10%] justify-center items-center text-2xl uppercase font-bold dark:text-slate-200">
@@ -56,9 +55,14 @@ const Component: React.FC<ComponentProps> = ({ type }) => {
       </div>
       <div className="h-[90%] overflow-y-scroll">
         <div className="flex flex-col w-full justify-center items-center gap-6 py-10">
-          {data.eventByType.map((event) => (
-            <EventCard event={event} />
+          {data.eventByType.map((event: any) => (
+            <EventCard event={event} key={event.id} />
           ))}
+          {data.eventByType.length === 0 && (
+            <div className="italic uppercase font-urbanist text-gray-500">
+              No Event
+            </div>
+          )}
         </div>
       </div>
     </div>

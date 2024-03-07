@@ -5,8 +5,9 @@ import localfont from "next/font/local";
 import SessionProvider from "@/components/SessionProvider";
 import { getServerSession } from "next-auth";
 import { Providers } from "./providers";
-import client from "@/utils/apolliClient";
+import client from "@/utils/apolloClient";
 import { ApolloProvider } from "@apollo/client";
+import { EdgeStoreProvider } from "../lib/edgestore";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -90,7 +91,9 @@ export default async function RootLayout({
         className={`${urbanist.variable} ${quigly.variable} ${cerlions.variable} ${ageya.variable} ${canopee.variable} ${confillia.variable} ${dahlia.variable} ${inter.className}`}
       >
         <Providers>
-          <SessionProvider session={session}>{children}</SessionProvider>
+          <SessionProvider session={session}>
+            <EdgeStoreProvider>{children}</EdgeStoreProvider>
+          </SessionProvider>
         </Providers>
       </body>
     </html>

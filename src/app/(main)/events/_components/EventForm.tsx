@@ -39,20 +39,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useGeolocationStore, useUserIdStore } from "@/store";
-import client from "@/utils/apolliClient";
+import client from "@/utils/apolloClient";
 
 const formSchema = z.object({
   title: z.string().min(2, {
     message: "Title must be at least 2 characters.",
   }),
   description: z.string(),
-  attendees: z.string(),
+  attendees: z.coerce.number().int().positive().lt(20),
   type: z.string(),
   date: z.union([z.date(), z.string()]),
-  hr: z.string(),
-  mn: z.string(),
+  hr: z.coerce.number().int().nonnegative().lt(24),
+  mn: z.coerce.number().int().nonnegative().lt(60),
   remainder: z.boolean(),
-  duration: z.coerce.number().positive().lt(720),
+  duration: z.coerce.number().int().positive().lt(720),
   color: z
     .string()
     .startsWith("#")
@@ -90,7 +90,7 @@ export function ProfileForm() {
             });
             return [...existingEvents, newEventRef];
           },
-          eventByType(existingEvents = []) {
+          eventByType(existingEventByType = []) {
             const newEventRef = cache.writeFragment({
               data: createEvent,
               fragment: gql`
@@ -102,7 +102,7 @@ export function ProfileForm() {
                 }
               `,
             });
-            return [...existingEvents, newEventRef];
+            return [...existingEventByType, newEventRef];
           },
         },
       });
@@ -117,19 +117,19 @@ export function ProfileForm() {
       title: "",
       description: "",
       type: "Work",
-      attendees: "1",
+      attendees: 1,
       remainder: false,
-      hr: "12",
-      mn: "0",
+      hr: 12,
+      mn: 30,
       duration: 10,
       color: "#0284C7",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const date = new Date(values.date);
-    const isoDate = date.toISOString();
-    values.date = isoDate;
+    const date = values.date;
+    const localDate = date.toLocaleString();
+    values.date = localDate;
     // console.log("coordinates :", coordinates);
     try {
       const { data } = await createEvent({
@@ -144,6 +144,7 @@ export function ProfileForm() {
             remainder: values.remainder,
             title: values.title,
             type: values.type,
+            createdAt: new Date(Date.now()),
           },
           userId: userId,
         },
@@ -209,22 +210,16 @@ export function ProfileForm() {
                 control={form.control}
                 name="attendees"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Attendees</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue="1">
-                      <FormControl>
-                        <SelectTrigger className="dark:bg-[#2C293D]">
-                          <SelectValue placeholder="No of Attendees" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent className="dark:bg-[#2C293D]">
-                        <SelectItem value="1">1</SelectItem>
-                        <SelectItem value="2">2</SelectItem>
-                        <SelectItem value="3">3</SelectItem>
-                        <SelectItem value="4">4</SelectItem>
-                        <SelectItem value="5">4+</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <FormItem className="flex flex-col gap-2  w-[20%]">
+                    Attendees
+                    <FormControl>
+                      <Input
+                        type="number"
+                        className="w-[90%] dark:bg-[#2C293D]"
+                        placeholder="1 Person"
+                        {...field}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -294,50 +289,23 @@ export function ProfileForm() {
               />
             </div>
 
-            <div className="flex justify-start gap-10 items-start w-full">
-              <div className="flex  gap-1 items-end">
+            <div className="flex justify-start gap-10 items-start w-[80%]">
+              <div className="flex  gap-4 justify-center items-end">
                 <FormField
                   control={form.control}
                   name="hr"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>From</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue="12">
-                        <FormControl className="dark:bg-[#2C293D]">
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="dark:bg-[#2C293D] h-[150px]">
-                          <SelectItem value="0">0</SelectItem>
-                          <SelectItem value="1">1</SelectItem>
-                          <SelectItem value="2">2</SelectItem>
-                          <SelectItem value="3">3</SelectItem>
-                          <SelectItem value="4">4</SelectItem>
-                          <SelectItem value="5">5</SelectItem>
-                          <SelectItem value="6">6</SelectItem>
-                          <SelectItem value="7">7</SelectItem>
-                          <SelectItem value="8">8</SelectItem>
-                          <SelectItem value="9">9</SelectItem>
-                          <SelectItem value="10">10</SelectItem>
-                          <SelectItem value="11">11</SelectItem>
-                          <SelectItem value="12">12</SelectItem>
-                          <SelectItem value="13">13</SelectItem>
-                          <SelectItem value="14">14</SelectItem>
-                          <SelectItem value="15">15</SelectItem>
-                          <SelectItem value="16">16</SelectItem>
-                          <SelectItem value="17">17</SelectItem>
-                          <SelectItem value="18">18</SelectItem>
-                          <SelectItem value="19">19</SelectItem>
-                          <SelectItem value="20">20</SelectItem>
-                          <SelectItem value="21">21</SelectItem>
-                          <SelectItem value="22">22</SelectItem>
-                          <SelectItem value="23">23</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormDescription className=" text-center">
-                        hour
-                      </FormDescription>
+                    <FormItem className="flex flex-col gap-2  w-[30%]">
+                      From
+                      <FormControl>
+                        <Input
+                          type="number"
+                          className="w-[100%] dark:bg-[#2C293D]"
+                          placeholder="1 hr"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>hr</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -346,79 +314,16 @@ export function ProfileForm() {
                   control={form.control}
                   name="mn"
                   render={({ field }) => (
-                    <FormItem>
-                      <Select onValueChange={field.onChange} defaultValue="0">
-                        <FormControl className="dark:bg-[#2C293D]">
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="dark:bg-[#2C293D] h-[150px]">
-                          <SelectItem value="0">0</SelectItem>
-                          <SelectItem value="1">1</SelectItem>
-                          <SelectItem value="2">2</SelectItem>
-                          <SelectItem value="3">3</SelectItem>
-                          <SelectItem value="4">4</SelectItem>
-                          <SelectItem value="5">5</SelectItem>
-                          <SelectItem value="6">6</SelectItem>
-                          <SelectItem value="7">7</SelectItem>
-                          <SelectItem value="8">8</SelectItem>
-                          <SelectItem value="9">9</SelectItem>
-                          <SelectItem value="10">10</SelectItem>
-                          <SelectItem value="11">11</SelectItem>
-                          <SelectItem value="12">12</SelectItem>
-                          <SelectItem value="13">13</SelectItem>
-                          <SelectItem value="14">14</SelectItem>
-                          <SelectItem value="15">15</SelectItem>
-                          <SelectItem value="16">16</SelectItem>
-                          <SelectItem value="17">17</SelectItem>
-                          <SelectItem value="18">18</SelectItem>
-                          <SelectItem value="19">19</SelectItem>
-                          <SelectItem value="20">20</SelectItem>
-                          <SelectItem value="21">21</SelectItem>
-                          <SelectItem value="22">22</SelectItem>
-                          <SelectItem value="23">23</SelectItem>
-                          <SelectItem value="24">24</SelectItem>
-                          <SelectItem value="25">25</SelectItem>
-                          <SelectItem value="26">26</SelectItem>
-                          <SelectItem value="27">27</SelectItem>
-                          <SelectItem value="28">28</SelectItem>
-                          <SelectItem value="29">29</SelectItem>
-                          <SelectItem value="30">30</SelectItem>
-                          <SelectItem value="31">31</SelectItem>
-                          <SelectItem value="32">32</SelectItem>
-                          <SelectItem value="33">33</SelectItem>
-                          <SelectItem value="34">34</SelectItem>
-                          <SelectItem value="35">35</SelectItem>
-                          <SelectItem value="36">36</SelectItem>
-                          <SelectItem value="37">37</SelectItem>
-                          <SelectItem value="38">38</SelectItem>
-                          <SelectItem value="39">39</SelectItem>
-                          <SelectItem value="40">40</SelectItem>
-                          <SelectItem value="41">41</SelectItem>
-                          <SelectItem value="42">42</SelectItem>
-                          <SelectItem value="43">43</SelectItem>
-                          <SelectItem value="44">44</SelectItem>
-                          <SelectItem value="45">45</SelectItem>
-                          <SelectItem value="46">46</SelectItem>
-                          <SelectItem value="47">47</SelectItem>
-                          <SelectItem value="48">48</SelectItem>
-                          <SelectItem value="49">49</SelectItem>
-                          <SelectItem value="50">50</SelectItem>
-                          <SelectItem value="51">51</SelectItem>
-                          <SelectItem value="52">52</SelectItem>
-                          <SelectItem value="53">53</SelectItem>
-                          <SelectItem value="54">54</SelectItem>
-                          <SelectItem value="55">55</SelectItem>
-                          <SelectItem value="56">56</SelectItem>
-                          <SelectItem value="57">57</SelectItem>
-                          <SelectItem value="58">58</SelectItem>
-                          <SelectItem value="59">59</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormDescription className=" text-center">
-                        min
-                      </FormDescription>
+                    <FormItem className="flex flex-col gap-2  w-[30%]">
+                      <FormControl>
+                        <Input
+                          type="number"
+                          className="w-[100%] dark:bg-[#2C293D]"
+                          placeholder="1 min"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>mn</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -450,7 +355,7 @@ export function ProfileForm() {
                     Color
                     <FormControl>
                       <Input
-                        className="w-[60%] dark:bg-[#2C293D]"
+                        className="w-[100%] dark:bg-[#2C293D]"
                         placeholder="#fffffff"
                         {...field}
                       />
