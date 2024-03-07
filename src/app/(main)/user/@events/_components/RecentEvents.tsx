@@ -40,9 +40,9 @@ const RecentEvents = () => {
       {events.length >= 3 && (
         <>
           {" "}
-          <RecentEventCard event={events[0]} />
-          <RecentEventCard event={events[1]} />
-          <RecentEventCard event={events[2]} />
+          <RecentEventCard event={events[events.length - 1]} />
+          <RecentEventCard event={events[events.length - 2]} />
+          <RecentEventCard event={events[events.length - 3]} />
         </>
       )}
       {events.length < 3 &&

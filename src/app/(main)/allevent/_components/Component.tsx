@@ -4,6 +4,7 @@ import client from "@/utils/apolloClient";
 import { useUserIdStore } from "@/store";
 import EventCard from "./EventCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { separateEvents } from "./EventSeperator";
 
 interface ComponentProps {
   type: string;
@@ -47,7 +48,10 @@ const Component: React.FC<ComponentProps> = ({ type }) => {
       </div>
     );
   if (error) return <p>Error: {error.message}</p>;
-
+  // console.log(data.eventByType);
+  const [Today, Future] = separateEvents(data.eventByType);
+  console.log("Today :", Today);
+  console.log("Future", Future);
   return (
     <div className="bg-white dark:bg-[#35374B] h-[92%] w-[27%] rounded-xl ">
       <div className="w-full flex h-[10%] justify-center items-center text-2xl uppercase font-bold dark:text-slate-200">
@@ -55,7 +59,16 @@ const Component: React.FC<ComponentProps> = ({ type }) => {
       </div>
       <div className="h-[90%] overflow-y-scroll">
         <div className="flex flex-col w-full justify-center items-center gap-6 py-10">
-          {data.eventByType.map((event: any) => (
+          {Today.length !== 0 && (
+            <div className="w-[90%] uppercase font-urbanist">Today</div>
+          )}
+          {Today.map((event: any) => (
+            <EventCard event={event} key={event.id} />
+          ))}
+          {Future.length !== 0 && (
+            <div className="w-[90%] uppercase font-urbanist">Future</div>
+          )}
+          {Future.map((event: any) => (
             <EventCard event={event} key={event.id} />
           ))}
           {data.eventByType.length === 0 && (
