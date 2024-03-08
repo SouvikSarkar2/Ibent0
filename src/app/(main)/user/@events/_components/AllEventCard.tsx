@@ -1,6 +1,6 @@
 "use client";
 import { useUserIdStore } from "@/store";
-import { calculateTimeElapsed } from "@/utils/Data";
+import { calculateTimeElapsed, formatDateOnly } from "@/utils/Data";
 import client from "@/utils/apolloClient";
 import { gql, useMutation } from "@apollo/client";
 
@@ -30,7 +30,7 @@ const GET_EVENT_BY_TYPE = gql`
   }
 `;
 
-const RecentEventCard = ({ event }: any) => {
+const AllEventCard = ({ event }: any) => {
   const { userId } = useUserIdStore();
   const [deleteEvent, { loading, error, data, reset }] = useMutation(
     DELETE_EVENT,
@@ -55,7 +55,7 @@ const RecentEventCard = ({ event }: any) => {
   return (
     <div className=" border-b-2 border-black flex justify-between h-[50px] ">
       <div className="w-[50%]  flex items-center">
-        {calculateTimeElapsed(event.createdAt)}
+        {formatDateOnly(event.date)}
       </div>
       <div className="w-[20%] flex items-center">{event.title}</div>
       <div className="w-[30%] flex items-center justify-end">{event.type}</div>
@@ -71,4 +71,4 @@ const RecentEventCard = ({ event }: any) => {
   );
 };
 
-export default RecentEventCard;
+export default AllEventCard;

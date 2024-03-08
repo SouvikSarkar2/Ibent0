@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const links = [
   { href: "/calender", text: "Calender" },
-  { href: "/allevent", text: "All Event" },
+  { href: "/allevent", text: "Pending" },
   { href: "/events", text: "Add Event" },
   { href: "/user", text: "User" },
 ];
@@ -45,7 +45,7 @@ const Sidebar = () => {
           key={index}
           href={link.href}
           onClick={() => setIsActive(index)}
-          className={`hover:bg-white hover:pl-10  dark:hover:bg-[#494c62] duration-500  w-[90%] py-3 pl-3 rounded-xl font-bold font-urbanist uppercase text-md ${
+          className={`hover:bg-white hover:pl-12  dark:hover:bg-[#494c62] duration-500  w-[90%] py-3 pl-3 rounded-xl font-bold font-urbanist uppercase text-md ${
             isActive === index
               ? "bg-white dark:bg-[#494c62] "
               : " bg-inherit dark:bg-inherit"

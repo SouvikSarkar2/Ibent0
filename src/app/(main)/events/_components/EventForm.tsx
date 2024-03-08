@@ -66,6 +66,7 @@ const CREATE_EVENT = gql`
       id
       date
       type
+      description
     }
   }
 `;
@@ -144,6 +145,7 @@ export function ProfileForm() {
             remainder: values.remainder,
             title: values.title,
             type: values.type,
+            description: values.description,
             createdAt: new Date(Date.now()),
           },
           userId: userId,
@@ -156,8 +158,18 @@ export function ProfileForm() {
     }
   }
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading)
+    return (
+      <div className="italic w-[100%] h-[80%] flex justify-center items-center">
+        HANG TIGHT ADDING YOUR AWESOME EVENT...
+      </div>
+    );
+  if (error)
+    return (
+      <div className="italic w-[100%] h-[80%] flex justify-center items-center">
+        ERROR : {error.message}
+      </div>
+    );
 
   return (
     <div className=" w-[100%] flex justify-center items-center overflow-y-scroll ">

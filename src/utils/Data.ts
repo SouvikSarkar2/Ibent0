@@ -62,7 +62,7 @@ export function calculateTimeElapsed(createdAtString: string): string {
     // 1440 minutes = 1 day
     const hoursPassed: number = Math.floor(minutesPassed / 60);
     const remainingMinutes: number = minutesPassed % 60;
-    return `Created${hoursPassed} hour${
+    return `Created ${hoursPassed} hour${
       hoursPassed !== 1 ? "s" : ""
     } and ${remainingMinutes} minute${remainingMinutes !== 1 ? "s" : ""} ago`;
   } else if (minutesPassed < 43200) {
@@ -75,13 +75,84 @@ export function calculateTimeElapsed(createdAtString: string): string {
   } else {
     const monthsPassed: number = Math.floor(minutesPassed / 43200); // Approximately 30 days per month
     const remainingDays: number = Math.floor((minutesPassed % 43200) / 1440);
-    return `Created${monthsPassed} month${
+    return `Created ${monthsPassed} month${
       monthsPassed !== 1 ? "s" : ""
     } and ${remainingDays} day${remainingDays !== 1 ? "s" : ""} ago`;
   }
 }
 
-// Example usage:
-const createdAtString: string = "2024-03-06T12:56:05.966Z"; // Assume the event was created on March 6th, 2024
-const timeElapsed: string = calculateTimeElapsed(createdAtString);
-console.log(`Time elapsed since creation: ${timeElapsed}`);
+export function formatDate(inputDate: string): string {
+  const dateParts = inputDate.split(", ")[0].split("/");
+  const day = parseInt(dateParts[1]);
+  const month = parseInt(dateParts[0]);
+
+  let dayString: string;
+  switch (day) {
+    case 1:
+    case 21:
+    case 31:
+      dayString = `${day}st`;
+      break;
+    case 2:
+    case 22:
+      dayString = `${day}nd`;
+      break;
+    case 3:
+    case 23:
+      dayString = `${day}rd`;
+      break;
+    default:
+      dayString = `${day}th`;
+  }
+
+  const formattedDate = `${dayString} ${new Date().toLocaleString("en", {
+    month: "long",
+  })}`;
+
+  return formattedDate;
+}
+
+export function formatDateOnly(inputDate: string): string {
+  const [datePart] = inputDate.split(", "); // Split to get only the date part
+  const [month, day, year] = datePart.split("/"); // Split date part to get month, day, and year
+
+  // Convert day to number
+  const dayNumber = parseInt(day);
+
+  // Determine the suffix for the day
+  let daySuffix: string;
+  if (dayNumber === 1 || dayNumber === 21 || dayNumber === 31) {
+    daySuffix = "st";
+  } else if (dayNumber === 2 || dayNumber === 22) {
+    daySuffix = "nd";
+  } else if (dayNumber === 3 || dayNumber === 23) {
+    daySuffix = "rd";
+  } else {
+    daySuffix = "th";
+  }
+
+  // Create formatted date string
+  const formattedDate = `${day}${daySuffix} ${getMonthName(
+    parseInt(month)
+  )} ${year}`;
+  return formattedDate;
+}
+
+// Helper function to get month name
+function getMonthName(month: number): string {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return monthNames[month - 1]; // Month is 0-indexed in JavaScript Date objects
+}

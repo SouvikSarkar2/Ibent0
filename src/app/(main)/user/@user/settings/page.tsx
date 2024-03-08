@@ -27,6 +27,7 @@ import { ArrowLeftCircle } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SingleImageDropzone } from "./_components/SingleImageDropZone";
+import Loader from "@/components/Loader/Loader";
 
 const GET_USER = gql`
   query GetUser($id: String!) {
@@ -82,9 +83,13 @@ const Settings = () => {
       color: `${user?.color}`,
     },
   });
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (updateLoader)
-    return <div className="flex flex-col h-full">Loading...</div>;
+    return (
+      <div className="flex flex-col h-full">
+        <Loader />
+      </div>
+    );
   if (error) return <p>Error: {error.message}</p>;
   if (updateError) return <p>UpdateError: {updateError.message}</p>;
 
@@ -113,7 +118,7 @@ const Settings = () => {
                   height={200}
                   value={file}
                   dropzoneOptions={{
-                    maxSize: 1024 * 1024 * 5,
+                    maxSize: 1024 * 1024 * 3,
                     maxFiles: 1,
                   }}
                   onChange={(file) => {

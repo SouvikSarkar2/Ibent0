@@ -5,6 +5,7 @@ import { useUserIdStore } from "@/store";
 import EventCard from "./EventCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { separateEvents } from "./EventSeperator";
+import EventCardFuture from "./EventCardFuture";
 
 interface ComponentProps {
   type: string;
@@ -19,6 +20,7 @@ const GET_EVENT_BY_TYPE = gql`
       color
       date
       duration
+      description
       hr
       mn
     }
@@ -66,10 +68,10 @@ const Component: React.FC<ComponentProps> = ({ type }) => {
             <EventCard event={event} key={event.id} />
           ))}
           {Future.length !== 0 && (
-            <div className="w-[90%] uppercase font-urbanist">Future</div>
+            <div className="w-[90%] uppercase font-urbanist">Upcoming</div>
           )}
           {Future.map((event: any) => (
-            <EventCard event={event} key={event.id} />
+            <EventCardFuture event={event} key={event.id} />
           ))}
           {data.eventByType.length === 0 && (
             <div className="italic uppercase font-urbanist text-gray-500">

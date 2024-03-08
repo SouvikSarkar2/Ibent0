@@ -27,7 +27,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/api/auth/[...nextauth]/route.js",
-    "src/app/(main)/events/_components/Map.jsx"
+    "src/app/(main)/events/_components/Map.jsx",
+    "src/app/loading.tsx"
   ],
   "exclude": ["node_modules"]
 }

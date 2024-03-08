@@ -2,8 +2,8 @@
 import { gql, useQuery } from "@apollo/client";
 import client from "@/utils/apolloClient";
 import { useUserIdStore } from "@/store";
-import RecentEventCard from "./_components/RecentEventCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import AllEventCard from "./_components/AllEventCard";
 
 const GET_EVENTS = gql`
   query Events($userId: String!) {
@@ -57,7 +57,7 @@ const RecentEvents = () => {
           <div className="h-[180px] w-full overflow-y-scroll">
             <div className=" w-full h-full">
               {events.map((event: any) => (
-                <RecentEventCard key={event.id} event={event} />
+                <AllEventCard key={event.id} event={event} />
               ))}
             </div>
           </div>
