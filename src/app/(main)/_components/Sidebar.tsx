@@ -5,6 +5,7 @@ import {
   CalendarRange,
   CircleUserRound,
   GanttChartSquare,
+  LayoutDashboard,
   PlusCircle,
 } from "lucide-react";
 
@@ -13,6 +14,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const links = [
+  { href: "/dashboard", text: "Dashboard" },
   { href: "/calender", text: "Calender" },
   { href: "/allevent", text: "Pending" },
   { href: "/events", text: "Add Event" },
@@ -20,26 +22,14 @@ const links = [
 ];
 
 const Sidebar = () => {
-  const [isActive, setIsActive] = useState<null | number>(null);
+  const [isActive, setIsActive] = useState<null | number>(0);
   const pathname = usePathname();
   // console.log(pathname);
   return (
     <div
-      className={` bg-gray-200 dark:bg-[#2C293D] border-r-4 border-white dark:border-[#020817] rounded-xl w-[15%] dark:text-text flex flex-col items-center gap-3 ${
-        pathname === "/dashboard" ? "pt-10" : ""
-      }`}
+      className={` bg-gray-200 dark:bg-[#2C293D] border-r-4 border-white dark:border-[#020817] rounded-xl w-[15%] dark:text-text flex flex-col items-center gap-3 
+        pt-10`}
     >
-      {pathname !== "/dashboard" && (
-        <div className="flex py-4 px-3 w-[90%]">
-          <Link
-            href={"/dashboard"}
-            className="bg-gray-300 dark:bg-[#2C293D] p-1 rounded-full"
-            onClick={() => setIsActive(null)}
-          >
-            <ArrowLeft />
-          </Link>
-        </div>
-      )}
       {links.map((link, index) => (
         <Link
           key={index}
@@ -52,10 +42,11 @@ const Sidebar = () => {
           }`}
         >
           <div className=" ease-in-out flex gap-2">
-            {index === 0 && <CalendarRange />}
-            {index === 1 && <GanttChartSquare />}
-            {index === 2 && <PlusCircle />}
-            {index === 3 && <CircleUserRound />}
+            {index === 0 && <LayoutDashboard />}
+            {index === 1 && <CalendarRange />}
+            {index === 2 && <GanttChartSquare />}
+            {index === 3 && <PlusCircle />}
+            {index === 4 && <CircleUserRound />}
 
             {link.text}
           </div>

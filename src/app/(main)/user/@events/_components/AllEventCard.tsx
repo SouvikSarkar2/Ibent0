@@ -5,6 +5,7 @@ import client from "@/utils/apolloClient";
 import { gql, useMutation } from "@apollo/client";
 
 import { Trash2 } from "lucide-react";
+import Link from "next/link";
 
 const DELETE_EVENT = gql`
   mutation DeleteEvent($id: ID!) {
@@ -54,11 +55,18 @@ const AllEventCard = ({ event }: any) => {
   };
   return (
     <div className=" border-b-2 border-black flex justify-between h-[50px] ">
-      <div className="w-[50%]  flex items-center">
+      <Link href={`/events/${event.id}`} className="w-[50%]  flex items-center">
         {formatDateOnly(event.date)}
-      </div>
-      <div className="w-[20%] flex items-center">{event.title}</div>
-      <div className="w-[30%] flex items-center justify-end">{event.type}</div>
+      </Link>
+      <Link href={`/events/${event.id}`} className="w-[20%] flex items-center">
+        {event.title}
+      </Link>
+      <Link
+        href={`/events/${event.id}`}
+        className="w-[30%] flex items-center justify-end"
+      >
+        {event.type}
+      </Link>
       <div
         onClick={() => {
           submitClick();

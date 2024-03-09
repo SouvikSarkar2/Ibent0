@@ -12,6 +12,7 @@ import {
   User,
   UsersRound,
 } from "lucide-react";
+import Link from "next/link";
 
 const DELETE_EVENT = gql`
   mutation DeleteEvent($id: ID!) {
@@ -52,8 +53,11 @@ const EventCardFuture = ({ event }: any) => {
     deleteEvent({ variables: { id: event.id } });
   };
   return (
-    <div className=" w-[90%] min-h-[60px] flex flex-col font-urbanist">
-      <div className="w-full bg-[#E5E7EB] dark:bg-[#2C293D] h-[50%] rounded-t-xl">
+    <div className=" w-[90%] min-h-[60px] flex flex-col font-urbanist ">
+      <Link
+        href={`/events/${event.id}`}
+        className="w-full bg-[#E5E7EB] dark:bg-[#2C293D] h-[50%] rounded-t-xl"
+      >
         <div
           className={`rounded-t-xl rounded-b-sm h-full flex flex-col gap-1 justify-center items-center`}
           style={{ backgroundColor: event.color }}
@@ -62,14 +66,27 @@ const EventCardFuture = ({ event }: any) => {
             {formatDate(event.date)}
           </div>
         </div>
-      </div>
+      </Link>
       <div className="w-full bg-[#E5E7EB] dark:bg-[#2C293D] h-[50%] rounded-b-xl flex flex-col justify-center items-center">
         <div className="w-full h-[50%] flex justify-between items-end gap-2 p-4">
-          <div className="font-semibold text-md">{event.title}</div>
+          <Link
+            href={`/events/${event.id}`}
+            className="font-semibold text-md w-full"
+          >
+            {event.title}
+          </Link>
 
           <div
-            className=" rounded-md cursor-pointer hover:scale-110 duration-300"
-            style={{ backgroundColor: event.color }}
+            className="rounded-md cursor-pointer"
+            style={{
+              backgroundColor: event.color,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "red";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = event.color;
+            }}
             onClick={() => {
               submitClick();
             }}

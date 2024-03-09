@@ -11,6 +11,7 @@ import {
   User,
   UsersRound,
 } from "lucide-react";
+import Link from "next/link";
 
 const DELETE_EVENT = gql`
   mutation DeleteEvent($id: ID!) {
@@ -52,8 +53,11 @@ const EventCard = ({ event }: any) => {
     deleteEvent({ variables: { id: event.id } });
   };
   return (
-    <div className=" w-[90%] min-h-[180px] flex font-urbanist">
-      <div className="w-[25%] bg-[#E5E7EB] dark:bg-[#2C293D] h-auto rounded-l-2xl">
+    <div className=" w-[90%] min-h-[180px] flex font-urbanist relative ">
+      <Link
+        href={`/events/${event.id}`}
+        className="w-[25%] bg-[#E5E7EB] dark:bg-[#2C293D] h-auto rounded-l-2xl"
+      >
         <div
           className={`rounded-2xl h-full flex flex-col gap-1 justify-center items-center`}
           style={{ backgroundColor: event.color }}
@@ -63,9 +67,12 @@ const EventCard = ({ event }: any) => {
           </div>
           <div className=" text-md">{event.duration}min</div>
         </div>
-      </div>
-      <div className="w-[75%] bg-[#E5E7EB] dark:bg-[#2C293D] h-auto rounded-r-xl flex flex-col justify-center items-center">
-        <div className="w-full h-[75%] flex flex-col justify-start pt-3 items-center">
+      </Link>
+      <div className="w-[75%] bg-[#E5E7EB] dark:bg-[#2C293D] h-auto rounded-r-xl flex flex-col justify-center items-center ">
+        <Link
+          href={`/events/${event.id}`}
+          className="w-full h-[75%] flex flex-col justify-start pt-3 items-center"
+        >
           <div className="font-bold text-[22px]">{event.title}</div>
           <div className="flex justify-center items-center gap-2 text-slate-600 dark:text-slate-400">
             <MapPin size={16} />
@@ -79,20 +86,28 @@ const EventCard = ({ event }: any) => {
           ) : (
             <div></div>
           )}
-        </div>
+        </Link>
         <div className="w-full h-[25%] flex justify-end items-end gap-2 p-4">
           <div
-            className="flex gap-1 text-lg rounded-md px-2 py-0.5 text-black justify-center items-center"
+            className="flex gap-1 text-lg rounded-md px-2 py-0.5 text-black justify-center items-center z-10"
             style={{ backgroundColor: event.color }}
+            onClick={() => {
+              submitClick();
+            }}
           >
             {event.attendees}
             <UsersRound size={20} />
           </div>
           <div
-            className=" rounded-md cursor-pointer hover:scale-110 duration-300"
-            style={{ backgroundColor: event.color }}
-            onClick={() => {
-              submitClick();
+            className=" rounded-md cursor-pointer "
+            style={{
+              backgroundColor: event.color,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "red";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = event.color;
             }}
           >
             <div className="p-1 text-black">

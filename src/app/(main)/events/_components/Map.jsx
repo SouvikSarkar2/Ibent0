@@ -10,7 +10,7 @@ import "./map.css";
 import * as maptilerClient from "@maptiler/client";
 import { useGeolocationStore } from "@/store";
 
-maptilerClient.config.apiKey = "4xvvAyMfEq6xan1UKktB";
+maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
 
 export default function Map() {
   const mapContainer = useRef(null);
