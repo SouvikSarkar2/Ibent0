@@ -38,13 +38,13 @@ const Event = ({ id }: { id: string }) => {
       <div className="w-[95%] h-[95%] bg-white dark:bg-[#35374B] rounded-xl flex">
         <div className="w-[50%] h-full rounded-l-xl flex flex-col items-center justify-start">
           <div
-            className="mt-10 w-[90%] rounded-xl"
+            className="mt-10 w-[90%] rounded-xl flex justify-between items-center flex-col"
             style={{ backgroundColor: event.color }}
           >
-            <div className="font-normal font-[Oswald] text-5xl p-10">
+            <div className="font-normal font-[Oswald] text-5xl p-4">
               {event.title}
             </div>
-            <div className="pl-10  py-4 text-lg font-urbanist">
+            <div className="flex justify-end items-end w-full p-4 text-lg font-urbanist">
               {event.description}
             </div>
           </div>
@@ -65,7 +65,7 @@ const Event = ({ id }: { id: string }) => {
             </div>
           </div>
           <div className="h-full w-full flex justify-end items-end pr-8 pb-6">
-            <div className="w-[400px] h-[400px] overflow-hidden flex justify-center items-center">
+            <div className="w-[400px] h-[400px] overflow-hidden flex justify-center items-center rounded-xl">
               <ViewMap />
             </div>
           </div>
