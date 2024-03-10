@@ -19,7 +19,7 @@ const MainLayout = async ({
     },
   });
   id = data?.id;
-  console.log("data :", data);
+  // console.log("data :", data);
 
   if (!session) {
     redirect("/");
@@ -36,7 +36,7 @@ const MainLayout = async ({
       },
     });
     id = user.id;
-    console.log("user :", user);
+    // console.log("user :", user);
   }
 
   return (

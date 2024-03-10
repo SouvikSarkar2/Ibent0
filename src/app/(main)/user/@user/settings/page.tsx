@@ -94,7 +94,7 @@ const Settings = () => {
   if (updateError) return <p>UpdateError: {updateError.message}</p>;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    // console.log(values);
     await updateUser({ variables: { userId: userId, input: values } });
     router.push("/user");
   }
@@ -141,7 +141,7 @@ const Settings = () => {
                         },
                       });
 
-                      console.log(res);
+                      // console.log(res);
                       updateUser({
                         variables: {
                           userId: userId,

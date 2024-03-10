@@ -30,6 +30,7 @@ input UpdateUserInput {
     type: String!
     description: String
     createdAt:String!
+    coordinates: [Float]
   }
 
 
@@ -45,6 +46,7 @@ input UpdateUserInput {
     title: String
     type: String
     description: String
+    coordinates: [Float]
   }
 
 
@@ -83,6 +85,7 @@ input UpdateUserInput {
     user: User!
     userId:String!
     createdAt:String!
+    coordinates: [Float]
   }
 
   type User {

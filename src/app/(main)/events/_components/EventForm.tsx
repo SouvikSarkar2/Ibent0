@@ -40,6 +40,7 @@ import {
 } from "@/components/ui/select";
 import { useGeolocationStore, useUserIdStore } from "@/store";
 import client from "@/utils/apolloClient";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -67,11 +68,13 @@ const CREATE_EVENT = gql`
       date
       type
       description
+      coordinates
     }
   }
 `;
 
 export function ProfileForm() {
+  const router = useRouter();
   const [createEvent, { loading, error }] = useMutation(CREATE_EVENT, {
     client,
     update(cache, { data: { createEvent } }) {
@@ -131,6 +134,7 @@ export function ProfileForm() {
     const date = values.date;
     const localDate = date.toLocaleString();
     values.date = localDate;
+
     // console.log("coordinates :", coordinates);
     try {
       const { data } = await createEvent({
@@ -147,12 +151,14 @@ export function ProfileForm() {
             type: values.type,
             description: values.description,
             createdAt: new Date(Date.now()),
+            coordinates: coordinates,
           },
           userId: userId,
         },
       });
 
       console.log("Event created:", data.createEvent);
+      router.push("/calender");
     } catch (error) {
       console.error("Error creating event:", error);
     }
@@ -289,7 +295,6 @@ export function ProfileForm() {
                       >
                         <Calendar
                           mode="single"
-                          selected={field.value}
                           onSelect={field.onChange}
                           initialFocus
                         />

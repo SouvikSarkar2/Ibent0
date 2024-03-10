@@ -17,6 +17,7 @@ const GET_EVENT_BY_TYPE = gql`
       id
       title
       attendees
+      type
       color
       date
       duration

@@ -10,7 +10,7 @@ const DayCard = ({ index, events }: { index: number; events: any }) => {
         {index}
       </div>
       {events.slice(0, 4).map((event: any) => (
-        <Link key={event.id} href={`/events/${event.id}`}>
+        <Link key={event.id} href={`/events/${event.id}?type=${event.type}`}>
           {" "}
           <div
             key={event.id}

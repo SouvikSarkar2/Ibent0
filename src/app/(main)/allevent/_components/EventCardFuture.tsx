@@ -13,6 +13,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const DELETE_EVENT = gql`
   mutation DeleteEvent($id: ID!) {
@@ -34,6 +35,7 @@ const GET_EVENTS = gql`
 `;
 
 const EventCardFuture = ({ event }: any) => {
+  const router = useRouter();
   const { userId } = useUserIdStore();
   const [deleteEvent, { loading, error, data, reset }] = useMutation(
     DELETE_EVENT,
@@ -55,7 +57,7 @@ const EventCardFuture = ({ event }: any) => {
   return (
     <div className=" w-[90%] min-h-[60px] flex flex-col font-urbanist ">
       <Link
-        href={`/events/${event.id}`}
+        href={`/events/${event.id}?type=${event.type}`}
         className="w-full bg-[#E5E7EB] dark:bg-[#2C293D] h-[50%] rounded-t-xl"
       >
         <div
@@ -70,7 +72,7 @@ const EventCardFuture = ({ event }: any) => {
       <div className="w-full bg-[#E5E7EB] dark:bg-[#2C293D] h-[50%] rounded-b-xl flex flex-col justify-center items-center">
         <div className="w-full h-[50%] flex justify-between items-end gap-2 p-4">
           <Link
-            href={`/events/${event.id}`}
+            href={`/events/${event.id}?type=${event.type}`}
             className="font-semibold text-md w-full"
           >
             {event.title}

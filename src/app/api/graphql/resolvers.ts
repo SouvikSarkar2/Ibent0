@@ -84,6 +84,7 @@ const resolvers = {
           title: input.title,
           type: input.type,
           createdAt: input.createdAt,
+          coordinates: input.coordinates,
           user: {
             connect: { id: id },
           },
@@ -105,6 +106,7 @@ const resolvers = {
           remainder: input.remainder,
           title: input.title,
           type: input.type,
+          coordinates: input.coordinates,
         },
         include: {
           user: true,

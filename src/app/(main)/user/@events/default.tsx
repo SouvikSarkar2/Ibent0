@@ -46,7 +46,7 @@ const RecentEvents = () => {
     );
   if (error) return <p>Error: {error.message}</p>;
   const { events } = data;
-  console.log(events);
+  // console.log(events);
   return (
     <div className="w-full h-[100%]   rounded-b-xl flex justify-center items-center p-2">
       <div className="w-full h-full">

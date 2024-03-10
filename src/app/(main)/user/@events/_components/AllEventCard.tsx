@@ -55,14 +55,20 @@ const AllEventCard = ({ event }: any) => {
   };
   return (
     <div className=" border-b-2 border-black flex justify-between h-[50px] ">
-      <Link href={`/events/${event.id}`} className="w-[50%]  flex items-center">
+      <Link
+        href={`/events/${event.id}?type=${event.type}`}
+        className="w-[50%]  flex items-center"
+      >
         {formatDateOnly(event.date)}
       </Link>
-      <Link href={`/events/${event.id}`} className="w-[20%] flex items-center">
+      <Link
+        href={`/events/${event.id}?type=${event.type}`}
+        className="w-[20%] flex items-center"
+      >
         {event.title}
       </Link>
       <Link
-        href={`/events/${event.id}`}
+        href={`/events/${event.id}?type=${event.type}`}
         className="w-[30%] flex items-center justify-end"
       >
         {event.type}
