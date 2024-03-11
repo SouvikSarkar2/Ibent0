@@ -136,8 +136,9 @@ export function ProfileForm() {
     console.log("date :", date);
     const localDate = date.toLocaleString();
     console.log("localDate :", localDate);
-
-    values.date = swap(localDate);
+    const newDate = swap(localDate);
+    console.log("newDate :", newDate);
+    values.date = newDate;
 
     // console.log("coordinates :", coordinates);
     try {
