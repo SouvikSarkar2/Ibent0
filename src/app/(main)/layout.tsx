@@ -12,10 +12,11 @@ const MainLayout = async ({
   const session = await getServerSession();
   const prisma = new PrismaClient();
   let id: undefined | string = undefined;
+  const email = session?.user?.email;
 
   const data = await prisma.user.findFirst({
     where: {
-      email: session?.user?.email,
+      email: email ?? "",
     },
   });
   id = data?.id;
@@ -28,8 +29,8 @@ const MainLayout = async ({
   if (data === null) {
     const user = await prisma.user.create({
       data: {
-        name: session?.user?.name,
-        email: session?.user?.email,
+        name: session?.user?.name ?? "",
+        email: session?.user?.email ?? "",
         color: "#0284C7",
         status: "My Status",
         img: session?.user?.image,

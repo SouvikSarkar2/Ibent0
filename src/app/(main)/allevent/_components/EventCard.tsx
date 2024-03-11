@@ -88,6 +88,7 @@ const EventCard = ({ event }: any) => {
             style={{
               backgroundColor: event.color,
             }}
+            onClick={() => submitClick()}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = "red";
             }}

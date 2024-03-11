@@ -54,6 +54,7 @@ const EventCardFuture = ({ event }: any) => {
   const submitClick = async () => {
     deleteEvent({ variables: { id: event.id } });
   };
+  console.log(event.date);
   return (
     <div className=" w-[90%] min-h-[60px] flex flex-col font-urbanist ">
       <Link

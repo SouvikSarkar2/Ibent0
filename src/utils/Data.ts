@@ -85,6 +85,7 @@ export function formatDate(inputDate: string): string {
   const dateParts = inputDate.split(", ")[0].split("/");
   const day = parseInt(dateParts[1]);
   const month = parseInt(dateParts[0]);
+  const year = parseInt(dateParts[2]);
 
   let dayString: string;
   switch (day) {
@@ -105,9 +106,11 @@ export function formatDate(inputDate: string): string {
       dayString = `${day}th`;
   }
 
-  const formattedDate = `${dayString} ${new Date().toLocaleString("en", {
+  const monthString = new Date(year, month - 1).toLocaleString("en", {
     month: "long",
-  })}`;
+  });
+
+  const formattedDate = `${dayString} ${monthString} ${year}`;
 
   return formattedDate;
 }

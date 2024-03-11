@@ -112,7 +112,7 @@ export function ProfileForm() {
       });
     },
   });
-  const { coordinates } = useGeolocationStore();
+  const { coordinates, setCoordinates } = useGeolocationStore();
   const { userId } = useUserIdStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -158,6 +158,7 @@ export function ProfileForm() {
       });
 
       console.log("Event created:", data.createEvent);
+      setCoordinates([0, 0]);
       router.push("/calender");
     } catch (error) {
       console.error("Error creating event:", error);
@@ -166,7 +167,7 @@ export function ProfileForm() {
 
   if (loading)
     return (
-      <div className="italic w-[100%] h-[80%] flex justify-center items-center">
+      <div className="italic w-[100%] min-h-[80%] flex justify-center items-center">
         HANG TIGHT ADDING YOUR AWESOME EVENT...
       </div>
     );
@@ -178,7 +179,7 @@ export function ProfileForm() {
     );
 
   return (
-    <div className=" w-[100%] flex justify-center items-center overflow-y-scroll ">
+    <div className=" w-[100%] flex justify-center items-center overflow-y-scroll pt-[200px] pb-10">
       <div className="w-[90%] pl-2  overflow-y-scroll">
         {" "}
         <Form {...form}>
@@ -312,7 +313,7 @@ export function ProfileForm() {
                   control={form.control}
                   name="hr"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col gap-2  w-[30%]">
+                    <FormItem className="flex flex-col gap-2  w-[100%]">
                       From
                       <FormControl>
                         <Input
@@ -331,7 +332,7 @@ export function ProfileForm() {
                   control={form.control}
                   name="mn"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col gap-2  w-[30%]">
+                    <FormItem className="flex flex-col gap-2  w-[100%]">
                       <FormControl>
                         <Input
                           type="number"
@@ -377,7 +378,7 @@ export function ProfileForm() {
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>Give color to yor event</FormDescription>
+                    <FormDescription className="w-full"></FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -406,6 +407,14 @@ export function ProfileForm() {
             >
               Submit
             </Button>
+            <div className="text-gray-400 dark:text-gray-500">
+              Some Awesome Colors - #C7395F #DED4E8 #E8BA40 #EDCBD2 #E87A5D
+              #E87A5D #3B5BA5 #1c2423 #80C4B7 #688CEC #D49BAE #D49BAE #49AFD5
+              #49AFD5 #E7A23A #F8EC7E #E4CCB2 #E26173 #B2456E #B2456E #56261A
+              #D4CAE3 #D4CAE3 #E69462 #E69462 #EDCD44 #DD3F26 #F2EC9B #F2EC9B
+              #1803A5 #DADADA #DADADA #4C8155 #E03C5F #224193 #224193 #E07887
+              #E07887 #E07887 #E07887 #B7E696 #A95EA3 #507B6A #6A513B #CAD4DE
+            </div>
           </form>
         </Form>
       </div>

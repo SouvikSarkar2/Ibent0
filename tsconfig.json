@@ -29,7 +29,8 @@
     "src/app/api/auth/[...nextauth]/route.js",
     "src/app/(main)/events/_components/Map.jsx",
     "src/app/loading.tsx",
-    "src/app/(main)/events/[eventId]/_components/ViewMap.jsx"
+    "src/app/(main)/events/[eventId]/_components/ViewMap.jsx",
+    "src/app/(main)/dashboard/_components/Donut.tsx"
   ],
   "exclude": ["node_modules"]
 }

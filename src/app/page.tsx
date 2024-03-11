@@ -31,7 +31,7 @@ export default function Home() {
   console.log("session from home :", session);
   console.log(session.status);
 
-  /* useGSAP(() => {
+  useGSAP(() => {
     t1.to(loaderRef.current, {
       width: screen.width,
       duration: 3,
@@ -73,7 +73,7 @@ export default function Home() {
         opacity: 1,
         duration: 1,
       });
-  }, []); */
+  }, []);
 
   async function handleSignin() {
     await signIn("google", {
@@ -96,7 +96,7 @@ export default function Home() {
         ref={mainRef}
       >
         <div className="absolute left-0 top-0 w-[100vw] h-[100vh] -z-10">
-          <Image src={"/bg8.jpg"} fill alt="" />
+          <Image src={"/bg1.jpg"} fill alt="" />
         </div>
         <div className="w-full h-[15%] flex justify-center items-center">
           <div className="w-[95%] border-[1px] border-gray-500 h-[40%]  rounded-full flex items-center justify-between">
@@ -106,24 +106,34 @@ export default function Home() {
               </div>
             </div>
             <div className="flex  uppercase font-medium gap-6">
-              <div className=" border-b-2 text-red-500 border-red-400">
-                Dashboard
-              </div>
+              <div className=" ">Dashboard</div>
               <div>Calender</div>
               <div>Location</div>
               <div>Live Updates</div>
             </div>
 
             <div className="flex justify-center items-center font-medium pr-1 gap-6">
-              <Link
-                href={"/dashboard"}
-                className="w-[90px] bg-black rounded-full text-sm flex justify-between px-0.5 pl-2 py-[3px] items-center"
-              >
-                <div className="text-white">LET&apos;S GO</div>
-                <div className="bg-white  rounded-full h-6 w-6 flex justify-center items-center">
-                  <ArrowRight size={18} />
+              {session.status === "unauthenticated" ? (
+                <div
+                  onClick={() => handleSignin()}
+                  className="w-[90px] cursor-pointer bg-black rounded-full text-sm flex justify-between px-0.5 pl-2 py-[3px] items-center"
+                >
+                  <div className="text-white">LOGIN</div>
+                  <div className="bg-white  rounded-full h-6 w-6 flex justify-center items-center">
+                    <ArrowRight size={18} />
+                  </div>
                 </div>
-              </Link>
+              ) : (
+                <Link
+                  href={"/dashboard"}
+                  className="w-[90px] bg-black rounded-full text-sm flex justify-between px-0.5 pl-2 py-[3px] items-center"
+                >
+                  <div className="text-white">LET&apos;S GO</div>
+                  <div className="bg-white  rounded-full h-6 w-6 flex justify-center items-center">
+                    <ArrowRight size={18} />
+                  </div>
+                </Link>
+              )}
               <div className="bg-black text-white flex justify-center items-center h-10 w-10 rounded-full">
                 <Braces />
               </div>
@@ -136,9 +146,18 @@ export default function Home() {
               <div className="w-10 h-10 flex justify-center items-center bg-[#eca845] rounded-full">
                 <Sparkle fill="black" />
               </div>
-              <div className="h-7 min-w-[100px] rounded-full bg-[#eca845] flex font-medium justify-center items-center px-3">
-                START JOURNEY
-              </div>
+              {session.status === "unauthenticated" ? (
+                <div className="h-7 min-w-[100px] rounded-full bg-[#eca845] flex font-medium justify-center items-center px-3">
+                  START JOURNEY
+                </div>
+              ) : (
+                <Link
+                  href={"/dashboard"}
+                  className="h-7 min-w-[100px] rounded-full bg-[#eca845] flex font-medium justify-center items-center px-3"
+                >
+                  START JOURNEY
+                </Link>
+              )}
             </div>
           </div>
           <div className="w-full h-[60%] flex flex-col font-normal justify-center items-center text-8xl">

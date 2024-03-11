@@ -16,18 +16,11 @@ export function separateEvents(events: Event[]): [Event[], Event[]] {
   const filteredEvents = events
     .filter((event) => {
       const eventDate = new Date(event.date);
-      if (
-        eventDate.getDate() === now.getDate() &&
-        eventDate.getMonth() === now.getMonth()
-      ) {
-        // If the event is on the same day as today
-        const eventStart =
-          eventDate.getTime() + (event.hr * 60 + event.mn) * 60000; // Event start time in milliseconds
-        const eventEnd = eventStart + event.duration * 60000; // Event end time in milliseconds
-        const nowTime = now.getTime(); // Current time in milliseconds
-        return eventEnd > nowTime; // Only include events that haven't ended yet
-      }
-      return eventDate.getTime() >= now.getTime(); // Include events on future dates
+      const eventStart =
+        eventDate.getTime() + (event.hr * 60 + event.mn) * 60000; // Event start time in milliseconds
+      const eventEnd = eventStart + event.duration * 60000; // Event end time in milliseconds
+      const nowTime = now.getTime(); // Current time in milliseconds
+      return eventEnd > nowTime || eventStart > nowTime; // Include events that haven't ended yet
     })
     .sort((a, b) => {
       const dateA = new Date(a.date);

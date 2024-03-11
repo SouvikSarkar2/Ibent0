@@ -51,10 +51,11 @@ const Component: React.FC<ComponentProps> = ({ type }) => {
       </div>
     );
   if (error) return <p>Error: {error.message}</p>;
-  // console.log(data.eventByType);
+  console.log(data.eventByType);
   const [Today, Future] = separateEvents(data.eventByType);
+  console.log(type);
   console.log("Today :", Today);
-  console.log("Future", Future);
+  console.log("Future  ", Future);
   return (
     <div className="bg-white dark:bg-[#35374B] h-[92%] w-[27%] rounded-xl ">
       <div className="w-full flex h-[10%] justify-center items-center text-2xl uppercase font-bold dark:text-slate-200">
