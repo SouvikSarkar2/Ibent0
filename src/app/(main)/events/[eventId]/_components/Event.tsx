@@ -145,7 +145,7 @@ const Event = ({ id }: { id: string }) => {
   const { event } = data;
   const haveLocation: boolean =
     event.coordinates[0] !== 0 && event.coordinates[1] !== 1;
-  console.log(haveLocation);
+  // console.log(haveLocation);
 
   return (
     <div className="w-full h-full flex justify-center items-center">

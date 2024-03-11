@@ -6,7 +6,7 @@ import "@maptiler/sdk/dist/maptiler-sdk.css";
 import "./map.css";
 
 const ViewMap = ({ coordinates }) => {
-  console.log(coordinates);
+  // console.log(coordinates);
   const mapContainer = useRef(null);
   const map = useRef(null);
 
