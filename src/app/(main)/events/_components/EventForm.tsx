@@ -137,7 +137,7 @@ export function ProfileForm() {
     let localDate = date.toLocaleString();
     console.log("localDate :", localDate);
     const isWindows = /Win/.test(navigator.platform);
-    if (isWindows) {
+    if (!isWindows) {
       localDate = swap(localDate);
       console.log(isWindows);
     }
