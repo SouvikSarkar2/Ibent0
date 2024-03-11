@@ -132,7 +132,10 @@ export function ProfileForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const date = values.date;
+    console.log("date :", date);
     const localDate = date.toLocaleString();
+    console.log("localDate :", localDate);
+
     values.date = localDate;
 
     // console.log("coordinates :", coordinates);
@@ -282,7 +285,7 @@ export function ProfileForm() {
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "PPP")
+                              format(field.value, "MM/dd/yyyy")
                             ) : (
                               <span>Pick a date</span>
                             )}
