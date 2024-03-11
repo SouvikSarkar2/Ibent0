@@ -134,8 +134,12 @@ export function ProfileForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const date = values.date;
     console.log("date :", date);
-    const localDate = date.toLocaleString();
+    let localDate = date.toLocaleString();
     console.log("localDate :", localDate);
+    const isWindows = /Win/.test(navigator.platform);
+    if (isWindows) {
+      localDate = swap(localDate);
+    }
     /* const newDate = swap(localDate);
     console.log("newDate :", newDate); */
     values.date = localDate;
