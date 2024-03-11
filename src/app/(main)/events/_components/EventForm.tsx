@@ -136,9 +136,9 @@ export function ProfileForm() {
     console.log("date :", date);
     const localDate = date.toLocaleString();
     console.log("localDate :", localDate);
-    const newDate = swap(localDate);
-    console.log("newDate :", newDate);
-    values.date = newDate;
+    /* const newDate = swap(localDate);
+    console.log("newDate :", newDate); */
+    values.date = localDate;
 
     // console.log("coordinates :", coordinates);
     try {
@@ -287,7 +287,7 @@ export function ProfileForm() {
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "MM/dd/yyyy")
+                              format(new Date(field.value), "MM/dd/yyyy") // Explicitly set the format here
                             ) : (
                               <span>Pick a date</span>
                             )}
