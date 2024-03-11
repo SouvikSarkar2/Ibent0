@@ -139,6 +139,7 @@ export function ProfileForm() {
     const isWindows = /Win/.test(navigator.platform);
     if (isWindows) {
       localDate = swap(localDate);
+      console.log(isWindows);
     }
     /* const newDate = swap(localDate);
     console.log("newDate :", newDate); */
