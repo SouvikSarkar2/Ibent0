@@ -159,3 +159,14 @@ function getMonthName(month: number): string {
   ];
   return monthNames[month - 1]; // Month is 0-indexed in JavaScript Date objects
 }
+
+export function swap(dateString: string): string {
+  const parts = dateString.split(/[ ,:]+/); // Split the date string into parts
+  const day = parts[0]; // Extract the day
+  const month = parts[1]; // Extract the month
+  parts[0] = month; // Swap day with month
+  parts[1] = day;
+
+  // Reconstruct the date string with swapped day and month
+  return parts.join("/") + `, ${parts[2]}:${parts[3]}:${parts[4]} ${parts[5]}`;
+}

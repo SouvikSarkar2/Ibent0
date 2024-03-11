@@ -41,6 +41,7 @@ import {
 import { useGeolocationStore, useUserIdStore } from "@/store";
 import client from "@/utils/apolloClient";
 import { useRouter } from "next/navigation";
+import { swap } from "@/utils/Data";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -136,7 +137,7 @@ export function ProfileForm() {
     const localDate = date.toLocaleString();
     console.log("localDate :", localDate);
 
-    values.date = localDate;
+    values.date = swap(localDate);
 
     // console.log("coordinates :", coordinates);
     try {
