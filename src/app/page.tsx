@@ -20,6 +20,7 @@ import {
 import TimeFunction from "@/components/TimeFunction/TimeFunction";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
+import { getCurrentDayAndMonth } from "@/utils/Data";
 
 export default function Home() {
   const loaderRef = useRef<HTMLDivElement | null>(null);
@@ -167,7 +168,7 @@ export default function Home() {
 
           <div className="w-full h-[15%]">
             <div className="border-gray-500 border-[1px] rounded-full w-[80px] flex justify-center items-center text-lg p-1 rotate-[270deg]">
-              01-04
+              {getCurrentDayAndMonth()}
             </div>
           </div>
         </div>

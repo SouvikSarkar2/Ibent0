@@ -11,7 +11,7 @@ import {
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const links = [
   { href: "/dashboard", text: "Dashboard" },
@@ -22,9 +22,12 @@ const links = [
 ];
 
 const Sidebar = () => {
-  const [isActive, setIsActive] = useState<null | number>(0);
   const pathname = usePathname();
-  // console.log(pathname);
+  console.log(pathname);
+  const [isActive, setIsActive] = useState<string | null>();
+  useEffect(() => {
+    setIsActive(pathname);
+  }, [pathname]);
   return (
     <div
       className={` bg-gray-200 dark:bg-[#2C293D] border-r-4 border-white dark:border-[#020817] rounded-xl w-[15%] dark:text-text flex flex-col items-center gap-3 
@@ -34,19 +37,19 @@ const Sidebar = () => {
         <Link
           key={index}
           href={link.href}
-          onClick={() => setIsActive(index)}
+          onClick={() => setIsActive(link.href)}
           className={`hover:bg-white hover:pl-12  dark:hover:bg-[#494c62] duration-500  w-[90%] py-3 pl-3 rounded-xl font-bold font-urbanist uppercase text-md ${
-            isActive === index
+            isActive === link.href
               ? "bg-white dark:bg-[#494c62] "
               : " bg-inherit dark:bg-inherit"
           }`}
         >
           <div className=" ease-in-out flex gap-2">
-            {index === 0 && <LayoutDashboard />}
-            {index === 1 && <CalendarRange />}
-            {index === 2 && <GanttChartSquare />}
-            {index === 3 && <PlusCircle />}
-            {index === 4 && <CircleUserRound />}
+            {link.href === "/dashboard" && <LayoutDashboard />}
+            {link.href === "/calender" && <CalendarRange />}
+            {link.href === "/allevent" && <GanttChartSquare />}
+            {link.href === "/events" && <PlusCircle />}
+            {link.href === "/user" && <CircleUserRound />}
 
             {link.text}
           </div>
