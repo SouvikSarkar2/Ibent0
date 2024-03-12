@@ -15,7 +15,7 @@ const page = () => {
         </div>
         <div className=" rounded-r-xl m-l w-[50%] h-full overflow-hidden relative">
           <Map />
-          <div className="absolute bottom-2 left-2 font-urbanist text-xl italic ">
+          <div className="absolute bottom-2 left-2 font-urbanist text-xl italic text-black">
             Search To Add Location
           </div>
         </div>
