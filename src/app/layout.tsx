@@ -11,6 +11,9 @@ import { EdgeStoreProvider } from "../lib/edgestore";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/logo6.png",
+  },
   title: "I b E n T 0",
   description: "An event calender app",
 };
