@@ -23,7 +23,7 @@ const links = [
 
 const Sidebar = () => {
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
   const [isActive, setIsActive] = useState<string | null>();
   useEffect(() => {
     setIsActive(pathname);
