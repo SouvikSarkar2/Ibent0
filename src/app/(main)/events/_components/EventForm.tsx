@@ -189,7 +189,7 @@ export function ProfileForm() {
     );
 
   return (
-    <div className=" w-[100%] flex justify-center items-center overflow-y-scroll pt-[200px] pb-10">
+    <div className=" w-[100%] flex justify-center items-center overflow-y-scroll pt-[250px] pb-10">
       <div className="w-[90%] pl-2  overflow-y-scroll">
         {" "}
         <Form {...form}>
@@ -388,7 +388,9 @@ export function ProfileForm() {
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription className="w-full"></FormDescription>
+                    <FormDescription className="w-full">
+                      add any hex color to your event
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
