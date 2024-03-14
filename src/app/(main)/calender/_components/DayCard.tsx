@@ -32,7 +32,7 @@ const DayCard = ({ index, events }: { index: number; events: any }) => {
       ))}
       {events.length > 4 && (
         <div className="text-gray-300 text-xs uppercase italic text-center">
-          ...AND MORE...
+          ...MORE...
         </div>
       )}
     </div>

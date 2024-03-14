@@ -42,6 +42,7 @@ import { useGeolocationStore, useUserIdStore } from "@/store";
 import client from "@/utils/apolloClient";
 import { useRouter } from "next/navigation";
 import { swap } from "@/utils/Data";
+import { HexColorPicker } from "react-colorful";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -55,10 +56,6 @@ const formSchema = z.object({
   mn: z.coerce.number().int().nonnegative().lt(60),
   remainder: z.boolean(),
   duration: z.coerce.number().int().positive().lt(720),
-  color: z
-    .string()
-    .startsWith("#")
-    .length(7, { message: "Must be of 7 letters Starting with #" }),
 });
 
 const CREATE_EVENT = gql`
@@ -76,6 +73,7 @@ const CREATE_EVENT = gql`
 
 export function ProfileForm() {
   const router = useRouter();
+  const [color, setColor] = React.useState("#0284C7");
   const [createEvent, { loading, error }] = useMutation(CREATE_EVENT, {
     client,
     update(cache, { data: { createEvent } }) {
@@ -127,7 +125,6 @@ export function ProfileForm() {
       hr: 12,
       mn: 30,
       duration: 10,
-      color: "#0284C7",
     },
   });
 
@@ -151,7 +148,7 @@ export function ProfileForm() {
         variables: {
           input: {
             attendees: values.attendees,
-            color: values.color,
+            color: color,
             date: values.date,
             duration: values.duration,
             hr: values.hr,
@@ -189,7 +186,7 @@ export function ProfileForm() {
     );
 
   return (
-    <div className=" w-[100%] flex justify-center items-center overflow-y-scroll pt-[250px] pb-10">
+    <div className=" w-[100%] flex justify-center items-center overflow-y-scroll pt-[150px] pb-10">
       <div className="w-[90%] pl-2  overflow-y-scroll">
         {" "}
         <Form {...form}>
@@ -323,12 +320,12 @@ export function ProfileForm() {
                   control={form.control}
                   name="hr"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col gap-2  w-[100%]">
+                    <FormItem className="flex flex-col gap-2  w-[80px]">
                       From
                       <FormControl>
                         <Input
                           type="number"
-                          className="w-[100%] dark:bg-[#2C293D]"
+                          className=" dark:bg-[#2C293D]"
                           placeholder="1 hr"
                           {...field}
                         />
@@ -342,11 +339,11 @@ export function ProfileForm() {
                   control={form.control}
                   name="mn"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col gap-2  w-[100%]">
+                    <FormItem className="flex flex-col gap-2  w-[80px]">
                       <FormControl>
                         <Input
                           type="number"
-                          className="w-[100%] dark:bg-[#2C293D]"
+                          className=" dark:bg-[#2C293D]"
                           placeholder="1 min"
                           {...field}
                         />
@@ -375,26 +372,13 @@ export function ProfileForm() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="color"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col gap-2 ">
-                    Color
-                    <FormControl>
-                      <Input
-                        className="w-[100%] dark:bg-[#2C293D]"
-                        placeholder="#fffffff"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription className="w-full">
-                      add any hex color to your event
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="flex flex-col gap-1">
+                <div>Color</div>
+                <div>
+                  {" "}
+                  <HexColorPicker color={color} onChange={setColor} />
+                </div>
+              </div>
             </div>
             <FormField
               control={form.control}
@@ -419,14 +403,6 @@ export function ProfileForm() {
             >
               Submit
             </Button>
-            <div className="text-gray-400 dark:text-gray-500">
-              Some Awesome Colors - #C7395F #DED4E8 #E8BA40 #EDCBD2 #E87A5D
-              #E87A5D #3B5BA5 #1c2423 #80C4B7 #688CEC #D49BAE #D49BAE #49AFD5
-              #49AFD5 #E7A23A #F8EC7E #E4CCB2 #E26173 #B2456E #B2456E #56261A
-              #D4CAE3 #D4CAE3 #E69462 #E69462 #EDCD44 #DD3F26 #F2EC9B #F2EC9B
-              #1803A5 #DADADA #DADADA #4C8155 #E03C5F #224193 #224193 #E07887
-              #E07887 #E07887 #E07887 #B7E696 #A95EA3 #507B6A #6A513B #CAD4DE
-            </div>
           </form>
         </Form>
       </div>
