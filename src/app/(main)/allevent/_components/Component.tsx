@@ -75,7 +75,7 @@ const Component: React.FC<ComponentProps> = ({ type }) => {
           {Future.map((event: any) => (
             <EventCardFuture event={event} key={event.id} />
           ))}
-          {data.eventByType.length === 0 && (
+          {Today.length === 0 && Future.length === 0 && (
             <div className="italic uppercase font-urbanist text-gray-500">
               No Event
             </div>
